@@ -1,0 +1,17 @@
+.tool{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18%;
+  height: 100%;
+  padding: 10px;
+}
+.tool button{
+  margin-top: 10px;
+  width: 100%;
+  padding: 4px;
+}
+.map{
+  width: 80%;
+  height: 100%;
+}
