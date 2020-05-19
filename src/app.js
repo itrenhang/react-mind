@@ -25,7 +25,7 @@ const AppTest = () => {
   }
   const insertIcon = () => {
     webMind.current.insertIcon();
-  },
+  }
   const undo = () => {
     webMind.current.undo();
   }
