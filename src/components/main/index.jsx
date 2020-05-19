@@ -14,6 +14,8 @@ import useHistory from "@context/reducer/history/useHistory";
 import cssModule from "./index.css";
 import { context } from "@context";
 import LineCanvas from '../lineCanvas';
+import Menu from '../menu';
+
 const node_refs = new Map();
 const Main = (props, ref) => {
   const useGlobalHook = useGlobal();
@@ -62,8 +64,13 @@ const Main = (props, ref) => {
     },
     redo() {
       useHistoryHook.redo();
-    }
-
+    },
+    moveUp(){
+      useNodeDataHook.moveUp(currentNode);
+    },
+    moveDown(){
+      useNodeDataHook.moveDown(currentNode);
+    },
   }));
   useEffect(() => {
     if ((data.data instanceof Object && Object.keys(data.data).length > 0) || !data.data) {
@@ -92,6 +99,7 @@ const Main = (props, ref) => {
       return (
         <>
           <NodeList node_refs={node_refs} />
+          <Menu />
           <LineCanvas parent_ref={self} node_refs={node_refs} />
         </>
       )
