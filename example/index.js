@@ -11,6 +11,8 @@ const Example = props => {
         <button onClick={props.addSub}>插入同级</button>
         <button onClick={props.addParent}>插入上级</button>
         <button onClick={props.deleteNode}>删除</button>
+        <button onClick={props.undo}>撤销</button>
+        <button onClick={props.redo}>恢复</button>
       </div>
       <div className={cssModule.map}>{props.children}</div>
     </>

@@ -23,6 +23,12 @@ const AppTest = () => {
   const deleteNode = () => {
     webMind.current.deleteNode();
   }
+  const undo = () => {
+    webMind.current.undo();
+  }
+  const redo = () => {
+    webMind.current.redo();
+  }
   return (
     <Example
         setTheme={setTheme}
@@ -31,6 +37,8 @@ const AppTest = () => {
         addSub={addSub}
         addParent={addParent}
         deleteNode={deleteNode}
+        undo={undo}
+        redo={redo}
       >
       <WebMind data={testData} ref={webMind} />
     </Example>

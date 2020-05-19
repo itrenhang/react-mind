@@ -24,6 +24,12 @@ const App = (props, ref) => {
     },
     deleteNode() {
       mindRef.current.deleteNode();
+    },
+    undo() {
+      mindRef.current.undo();
+    },
+    redo() {
+      mindRef.current.redo();
     }
   }))
   return (

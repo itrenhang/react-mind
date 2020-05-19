@@ -5,13 +5,6 @@ const useGlobal = () => {
   const {
     global: { dispatch: gDispatch }
   } = useContext(context);
-  const {
-    nodeData: {
-      state: {
-        nodes: { option: nodeRootOption }
-      }
-    }
-  } = useContext(context);
   return {
     setTheme(theme) {
       gDispatch({
@@ -41,7 +34,7 @@ const useGlobal = () => {
       gDispatch({
         type: "global/setMapPosCenter",
         payload: {
-          nodeRootOption: option || nodeRootOption,
+          nodeRootOption: option,
         }
       });
     }

@@ -2,7 +2,7 @@ import md5 from "md5";
 export const deepCopy = obj => {
   let _obj = Array.isArray(obj) ? [] : {}
   for (let i in obj) {
-    _obj[i] = typeof obj[i] === 'object' ? deepCopy(obj[i]) : obj[i]
+    _obj[i] = obj[i] && typeof obj[i] === 'object' ? deepCopy(obj[i]) : obj[i]
   }
   return _obj;
 };

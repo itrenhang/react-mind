@@ -3,8 +3,27 @@ import { context } from "../../index";
 
 const useNodeData = () => {
   const {
-    history: { dispatch: hDispatch }
+    history: { dispatch: hDispatch, state:history },
+    nodeData: { dispatch: nDispatch },
+    nodeState: { dispatch: nsDispatch },
   } = useContext(context);
+  const applySnapshot = snapshot => {
+    if (snapshot) {
+        const {nodes, currentNode} = snapshot;
+        nDispatch({
+          type: "nodeData/setMapData",
+          payload: {
+            ...{data: JSON.parse(nodes)}
+          }
+        })
+        nsDispatch({
+          type: "nodeState/selectNode",
+          payload: {
+            current: currentNode
+          }
+        })
+    }
+};
   return {
     setHistory(data) {
       hDispatch({
@@ -14,21 +33,11 @@ const useNodeData = () => {
         }
       });
     },
-    undo(data) {
-      hDispatch({
-        type: "history/undo",
-        payload: {
-          ...data
-        }
-      });
+    undo() {
+      applySnapshot(history.undo[history.undo.length - 1]);
     },
     redo(data) {
-      hDispatch({
-        type: "history/redo",
-        payload: {
-          ...data
-        }
-      });
+      applySnapshot(history.redo[0]);
     },
     clearHistory(data) {
       hDispatch({

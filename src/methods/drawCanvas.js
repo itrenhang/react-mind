@@ -6,7 +6,7 @@ const drawLine = (ctx, nodes, mindType, node_refs) => {
 
 const mindMapLine = (ctx, nodes, node_refs) => {
   const children = nodes.children;
-  if (children.length < 1) {
+  if (!children || children.length < 1) {
     return;
   }
   const parent_ele = node_refs.get(nodes.id);
