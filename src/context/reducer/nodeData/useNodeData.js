@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { context } from "../../index";
+import { cteateNode } from "../../../methods/nodeFunction";
 
 const useNodeData = () => {
   const {
-    nodeData: {
-      dispatch: nDispatch,
-      state: { nodes }
-    }
+    nodeData: { dispatch: nDispatch }
+  } = useContext(context);
+  const {
+    nodeState: { dispatch: nsDispatch }
   } = useContext(context);
   return {
     modifyNode(data) {
@@ -27,34 +28,71 @@ const useNodeData = () => {
     },
     addChild(id) {
       if (id) {
+        const node = cteateNode();
         nDispatch({
           type: "nodeData/addChild",
           payload: {
-            id
+            id,
+            node
+          }
+        });
+        nsDispatch({
+          type: "nodeState/selectNode",
+          payload: {
+            current: node.id,
+            edit: node.id
           }
         });
       }
     },
     addSub(id) {
       if (id) {
+        const node = cteateNode();
         nDispatch({
           type: "nodeData/addSub",
           payload: {
-            id
+            id,
+            node
+          }
+        });
+        nsDispatch({
+          type: "nodeState/selectNode",
+          payload: {
+            current: node.id,
+            edit: node.id
           }
         });
       }
     },
     addParent(id) {
       if (id) {
+        const node = cteateNode();
         nDispatch({
           type: "nodeData/addParent",
           payload: {
-            id
+            id,
+            node
+          }
+        });
+        nsDispatch({
+          type: "nodeState/selectNode",
+          payload: {
+            current: node.id,
+            edit: node.id
           }
         });
       }
     },
+    deleteNode(id) {
+      if (id) {
+        nDispatch({
+          type: "nodeData/deleteNode",
+          payload: {
+            id,
+          }
+        });
+      }
+    }
   };
 };
 

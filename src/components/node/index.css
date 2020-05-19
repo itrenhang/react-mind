@@ -25,12 +25,9 @@
   font-size: 14px;
 }
 .node_children{
-  /* border-bottom-color: var(--theme-color);
-  border-bottom-width:3px; */
   padding: 3px 12px;
-  /* border-bottom-style: solid; */
   font-size: 12px;
-  border-radius: 0px;
+  border-radius: 6px;
 }
 
 .node_children:hover, 

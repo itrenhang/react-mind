@@ -20,7 +20,9 @@ const AppTest = () => {
   const addParent = () => {
     webMind.current.addParent();
   }
-  const a = {}
+  const deleteNode = () => {
+    webMind.current.deleteNode();
+  }
   return (
     <Example
         setTheme={setTheme}
@@ -28,6 +30,7 @@ const AppTest = () => {
         addChild={addChild}
         addSub={addSub}
         addParent={addParent}
+        deleteNode={deleteNode}
       >
       <WebMind data={testData} ref={webMind} />
     </Example>

@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "@mind/web-mind",
+=======
+  "name": "react-mind",
+>>>>>>> develop
   "version": "1.0.0",
   "description": "",
   "main": "./dist/bundle.js",

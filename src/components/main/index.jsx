@@ -51,6 +51,9 @@ const Main = (props, ref) => {
     },
     addParent() {
       useNodeDataHook.addParent(currentNode);
+    },
+    deleteNode() {
+      useNodeDataHook.deleteNode(currentNode);
     }
   }));
   useEffect(() => {
@@ -62,7 +65,9 @@ const Main = (props, ref) => {
       });
     }
   }, []);
-
+  useEffect(()=>{
+    
+  },[])
   const overallClick = () => {
     if (currentNode) {
       useNodeStateHook.selectNode('');

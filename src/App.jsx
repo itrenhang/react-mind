@@ -21,6 +21,9 @@ const App = (props, ref) => {
     },
     addParent() {
       mindRef.current.addParent();
+    },
+    deleteNode() {
+      mindRef.current.deleteNode();
     }
   }))
   return (
