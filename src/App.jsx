@@ -27,6 +27,12 @@ const App = (props, ref) => {
     },
     insertIcon() {
       mindRef.current.insertIcon();
+    },
+    undo() {
+      mindRef.current.undo();
+    },
+    redo() {
+      mindRef.current.redo();
     }
   }))
   return (

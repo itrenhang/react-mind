@@ -4,9 +4,7 @@ import { cteateNode } from "../../../methods/nodeFunction";
 
 const useNodeData = () => {
   const {
-    nodeData: { dispatch: nDispatch }
-  } = useContext(context);
-  const {
+    nodeData: { dispatch: nDispatch },
     nodeState: { dispatch: nsDispatch }
   } = useContext(context);
   return {

@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import cssModule from './index.css';
 
 
 const editContainer = props => {
   const { finishEditing } = props
-  const ref = React.createRef(null);
+  const ref = useRef(null);
 
   // 发送编辑成功
   const finish = () => {
     const content = ref.current.innerHTML;
-    finishEditing(content);
+    if(content != props.children){
+      finishEditing(content);
+    }
   }
 
   useEffect(() => {

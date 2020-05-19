@@ -10,6 +10,7 @@ import NodeList from "../nodeList";
 import useGlobal from "@context/reducer/global/useGlobal";
 import useNodeData from "@context/reducer/nodeData/useNodeData";
 import useNodeState from "@context/reducer/nodeState/useNodeState";
+import useHistory from "@context/reducer/history/useHistory";
 import cssModule from "./index.css";
 import { context } from "@context";
 import LineCanvas from '../lineCanvas';
@@ -18,6 +19,7 @@ const Main = (props, ref) => {
   const useGlobalHook = useGlobal();
   const useNodeDataHook = useNodeData();
   const useNodeStateHook = useNodeState();
+  const useHistoryHook = useHistory();
 
   const {
     global: {
@@ -35,7 +37,7 @@ const Main = (props, ref) => {
   const mainMatrix = useMemo(() => {
     return { transform: `Matrix(1, 0, 0, 1, ${mapPos.x}, ${mapPos.y})` };
   }, [mapPos.x, mapPos.y]);
-
+  const nodes_json = useMemo(() => JSON.stringify(nodes), [nodes]);
   useImperativeHandle(ref, () => ({
     setTheme(val) {
       useGlobalHook.setTheme(val);
@@ -57,7 +59,14 @@ const Main = (props, ref) => {
     },
     insertIcon() {
       useNodeDataHook.deleteNode(currentNode);
+    },
+    undo() {
+      useHistoryHook.undo();
+    },
+    redo() {
+      useHistoryHook.redo();
     }
+
   }));
   useEffect(() => {
     if ((data.data instanceof Object && Object.keys(data.data).length > 0) || !data.data) {
@@ -69,8 +78,13 @@ const Main = (props, ref) => {
     }
   }, []);
   useEffect(()=>{
-    
-  },[])
+    if(Object.keys(nodes).length > 0){
+      useHistoryHook.setHistory({
+        nodes:nodes_json,
+        currentNode
+      });
+    }
+  },[nodes_json])
   const overallClick = () => {
     if (currentNode) {
       useNodeStateHook.selectNode('');
