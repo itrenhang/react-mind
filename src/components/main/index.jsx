@@ -54,6 +54,9 @@ const Main = (props, ref) => {
     },
     deleteNode() {
       useNodeDataHook.deleteNode(currentNode);
+    },
+    insertIcon() {
+      useNodeDataHook.deleteNode(currentNode);
     }
   }));
   useEffect(() => {

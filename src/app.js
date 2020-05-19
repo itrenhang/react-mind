@@ -23,6 +23,9 @@ const AppTest = () => {
   const deleteNode = () => {
     webMind.current.deleteNode();
   }
+  const insertIcon = () => {
+    webMind.current.insertIcon();
+  }
   return (
     <Example
         setTheme={setTheme}

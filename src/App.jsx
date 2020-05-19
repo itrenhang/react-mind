@@ -24,6 +24,9 @@ const App = (props, ref) => {
     },
     deleteNode() {
       mindRef.current.deleteNode();
+    },
+    insertIcon() {
+      mindRef.current.insertIcon();
     }
   }))
   return (
