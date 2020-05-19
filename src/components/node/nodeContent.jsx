@@ -4,9 +4,12 @@ import cssModule from "./index.css";
 const Text = props => <div dangerouslySetInnerHTML={{ __html: props.data }} />;
 
 const Icon = props => (
-  <div>{props.data.map(item => (
-    <img className={cssModule.content_img} src={item.url} alt="" />
-  ))}</div>
+  <div>{props.data.map(item => {
+    if(item){
+      return <img key={item.sort} className={cssModule.content_img} src={item.url} alt="" />
+    }
+    return null
+  })}</div>
 );
 
 const NodeContent = props => {

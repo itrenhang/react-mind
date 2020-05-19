@@ -25,8 +25,8 @@ const App = (props, ref) => {
     deleteNode() {
       mindRef.current.deleteNode();
     },
-    insertIcon() {
-      mindRef.current.insertIcon();
+    insertIcon(val) {
+      mindRef.current.insertIcon(val);
     },
     undo() {
       mindRef.current.undo();

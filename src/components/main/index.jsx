@@ -57,8 +57,8 @@ const Main = (props, ref) => {
     deleteNode() {
       useNodeDataHook.deleteNode(currentNode);
     },
-    insertIcon() {
-      useNodeDataHook.deleteNode(currentNode);
+    insertIcon(icon) {
+      useNodeDataHook.modifyNode({icon,id:currentNode});
     },
     undo() {
       useHistoryHook.undo();
