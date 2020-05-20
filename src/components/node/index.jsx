@@ -25,7 +25,7 @@ const Node = ({data, node_refs}) => {
     if (self.current) {
       const ele = self.current;
       node_refs.set(data.id, ele);
-      if (data.id == "root") {
+      if (data.ZIndex == 1) {
         useGlobalHook.setMapPosCenter({
           w: ele.offsetWidth,
           h: ele.offsetHeight,
