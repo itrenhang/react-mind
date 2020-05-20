@@ -87,6 +87,9 @@ export const nodeData = {
           }
         }
         return state;
+      case 'nodeData/expand':
+        node_found.expanded = action.payload.expanded;
+        return new_state;
       default:
         return state;
     }

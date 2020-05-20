@@ -4,6 +4,7 @@ export const testData = {
   content: {
     text: "新建脑图"
   },
+  expanded:true,
   style: {},
   children: [
     {
@@ -13,6 +14,7 @@ export const testData = {
         text: "新建脑图"
       },
       style: {},
+      expanded:true,
       children: [
         {
           id: "3",
@@ -21,6 +23,7 @@ export const testData = {
             text: "新建脑图"
           },
           style: {},
+          expanded:true,
           children: [
             {
               id: "5",
@@ -29,6 +32,7 @@ export const testData = {
                 text: "新建脑图"
               },
               style: {},
+              expanded:true,
               children: []
             },
             {
@@ -38,6 +42,7 @@ export const testData = {
                 text: "新建脑图"
               },
               style: {},
+              expanded:true,
               children: []
             }
           ]
@@ -49,6 +54,7 @@ export const testData = {
             text: "新建脑图"
           },
           style: {},
+          expanded:true,
           children: []
         }
       ]

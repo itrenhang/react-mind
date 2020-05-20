@@ -112,6 +112,17 @@ const useNodeData = () => {
           }
         });
       }
+    },
+    expand(id, expanded) {
+      if (id) {
+        nDispatch({
+          type: "nodeData/expand",
+          payload: {
+            id, 
+            expanded
+          }
+        });
+      }
     }
   };
 };

@@ -11,6 +11,11 @@ const Node = ({ data, node_refs }) => {
   const useNodeDataHook = useNodeData();
   const useNodeStateHook = useNodeState();
   const useGlobalHook = useGlobal();
+  const {
+    nodeState: {
+      state: { currentNode, editNode }
+    }
+  } = useContext(context);
 
   let cls = "";
   if (data.ZIndex == 1) {
@@ -37,12 +42,7 @@ const Node = ({ data, node_refs }) => {
       node_refs.delete(data.id);
     }
   }, []);
-
-  const {
-    nodeState: {
-      state: { currentNode, editNode }
-    }
-  } = useContext(context);
+  
   const className = `${cssModule.node_item} 
   ${currentNode === data.id && cssModule.active_node_item} `;
 
@@ -81,6 +81,10 @@ const Node = ({ data, node_refs }) => {
       visible: true
     })
   }
+  const setExpend = (e) => {
+    e.stopPropagation();
+    useNodeDataHook.expand(data.id, !data.expanded);
+  }
   return (
     <div
       onClick={e => nodeClick(data.id, e)}
@@ -91,7 +95,9 @@ const Node = ({ data, node_refs }) => {
         className={cls}
         finishEditing={finishEditing}
         canEdit={editNode === data.id}
-        content={data.content} />
+        data={data}
+        setExpend={setExpend}
+        />
     </div>
   )
 
