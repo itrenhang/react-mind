@@ -37,6 +37,14 @@ const useGlobal = () => {
           nodeRootOption: option,
         }
       });
+    },
+    setContextMenu(option){
+      gDispatch({
+        type: "global/contextMenu",
+        payload: {
+          contextMenuOpt: option || {x: 0,y: 0,visible: false},
+        }
+      });
     }
   };
 };

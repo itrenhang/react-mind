@@ -24,7 +24,7 @@ const Node = ({ data, node_refs }) => {
     if (self.current) {
       const ele = self.current;
       node_refs.set(data.id, ele);
-      if (data.id == "root") {
+      if (data.ZIndex == 1) {
         useGlobalHook.setMapPosCenter({
           w: ele.offsetWidth,
           h: ele.offsetHeight,
@@ -49,11 +49,13 @@ const Node = ({ data, node_refs }) => {
   const nodeClick = (id, e) => {
     e.stopPropagation();
     useNodeStateHook.selectNode(id);
+    useGlobalHook.setContextMenu();
   };
 
   const editClick = (id, e) => {
     e.stopPropagation();
     useNodeStateHook.editNode(id);
+    useGlobalHook.setContextMenu();
   };
 
   // 发送编辑成功
@@ -69,10 +71,21 @@ const Node = ({ data, node_refs }) => {
     useNodeStateHook.selectNode(data.id);
   }
 
+  const handleContextMenu = (event) => {
+    event.persist()
+    event.preventDefault();
+    useNodeStateHook.selectNode(data.id);
+    useGlobalHook.setContextMenu({
+      x: event.clientX,
+      y: event.clientY,
+      visible: true
+    })
+  }
   return (
     <div
       onClick={e => nodeClick(data.id, e)}
       onDoubleClick={e => editClick(data.id, e)}
+      onContextMenu={handleContextMenu}
       className={className} ref={self}>
       <NodeContent
         className={cls}

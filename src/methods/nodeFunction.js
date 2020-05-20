@@ -16,7 +16,7 @@ export const findNode = (node, search_id) => {
 
 export const cteateNode = ({ id, parentId, ZIndex, content } = {}) => {
   id = id || md5("" + Date.now() + Math.random());
-  content = content || "新建节点";
+  content = content || {text:"新建节点"};
   parentId = parentId || null;
   ZIndex = ZIndex || 1;
   return {
