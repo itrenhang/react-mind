@@ -72,10 +72,21 @@ const Node = ({data, node_refs}) => {
     useNodeStateHook.selectNode(data.id);
   }
 
+  const handleContextMenu = (event) => {
+    event.persist()
+    event.preventDefault();
+    useNodeStateHook.selectNode(data.id);
+    useGlobalHook.setContextMenu({
+      x: event.clientX,
+      y: event.clientY,
+      visible: true
+    })
+  }
   return (
     <div
       onClick={e => nodeClick(data.id, e)}
       onDoubleClick={e => editClick(data.id, e)}
+      onContextMenu={handleContextMenu}
       className={className} ref={self}>
       {editNode === data.id &&
         <EditContainer finishEditing={finishEditing}>

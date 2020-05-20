@@ -101,14 +101,6 @@ const Main = (props, ref) => {
   const handleContextMenu = (event) => {
     event.persist()
     event.preventDefault();
-    if(event.target.getAttribute('data-type') == 'node'){
-      useNodeStateHook.selectNode(event.target.id);
-      useGlobalHook.setContextMenu({
-        x: event.clientX,
-        y: event.clientY,
-        visible: true
-      })
-    }
   }
 
   const createNode = () => {
