@@ -21,7 +21,26 @@ export const testData = {
             text: "新建脑图"
           },
           style: {},
-          children: []
+          children: [
+            {
+              id: "5",
+              ZIndex: "4",
+              content: {
+                text: "新建脑图"
+              },
+              style: {},
+              children: []
+            },
+            {
+              id: "6",
+              ZIndex: "4",
+              content: {
+                text: "新建脑图"
+              },
+              style: {},
+              children: []
+            }
+          ]
         },
         {
           id: "4",
