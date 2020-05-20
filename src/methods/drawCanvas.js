@@ -17,6 +17,9 @@ const mindMapLine = (ctx, nodes, node_refs) => {
     y: parent_ele.offsetTop
   };
   let x1, y1, cx1, cy1, cx2, cy2, x2, y2;
+  if(!nodes.expanded){
+    return;
+  }
   children.forEach(child => {
     const child_ele = node_refs.get(child.id);
     const cOpt = {
@@ -35,7 +38,7 @@ const mindMapLine = (ctx, nodes, node_refs) => {
       cx2 = (x2 - x1) / 2 + x1;
       cy2 = y2;
     } else if (nodes.ZIndex !== "1") {
-      x1 = opt.x + opt.w;
+      x1 = opt.x + opt.w + 14;
       y1 = opt.y + opt.h / 2;
       x2 = cOpt.x;
       y2 = cOpt.y + cOpt.h / 2;

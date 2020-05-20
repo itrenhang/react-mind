@@ -24,6 +24,7 @@ export const cteateNode = ({ id, parentId, ZIndex, content } = {}) => {
     ZIndex,
     content,
     parentId,
+    expanded:true,
     style: {},
     children: []
   };

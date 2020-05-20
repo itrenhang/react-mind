@@ -21,10 +21,19 @@ const Icon = props => (
     })}
   </div>
 );
+const Expended = ({data, setExpend}) => {
+  const content = data.expanded?'-':'+';
+  if(data.ZIndex == 1 || data.children.length < 1){
+    return null;
+  }
+  return (
+    <div className={cssModule.expander} onClick={setExpend} onDoubleClick={e => e.stopPropagation()}>{content}</div>
+  )
+};
 
 const NodeContent = props => {
-  const { content, className, canEdit, finishEditing } = props;
-  const { text = "", icon = [] } = content;
+  const { className, canEdit, finishEditing, data } = props;
+  const { text = "", icon = [] } = data.content;
   const newClass = `${className} ${cssModule.content_container}`;
 
   return (
@@ -38,7 +47,7 @@ const NodeContent = props => {
           )}
         </div>
       </div>
-      <div className={cssModule.expander}>+</div>
+      <Expended data={data} setExpend={props.setExpend} />
     </>
   );
 };

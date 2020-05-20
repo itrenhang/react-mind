@@ -5,13 +5,13 @@ import MindMap from '../listStyle/LogicMap'
 
 const NodeList = ({node_refs}) => {
   const {
-    global: { state }
+    global: { state },
+    nodeData: { state: {nodes} }
   } = useContext(context);
   const { mindType } = state;
-
   return (
     <>
-      {mindType == "mindMap" && <MindMap node_refs={node_refs} />}
+      {mindType == "mindMap" && <MindMap node_refs={node_refs} nodes={nodes} />}
     </>
   );
 };
