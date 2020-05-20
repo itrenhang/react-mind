@@ -14,6 +14,7 @@ import useHistory from "@context/reducer/history/useHistory";
 import cssModule from "./index.css";
 import { context } from "@context";
 import LineCanvas from '../lineCanvas';
+import ContextMenu from '../ContextMenu';
 
 const node_refs = new Map();
 const Main = (props, ref) => {
@@ -91,19 +92,23 @@ const Main = (props, ref) => {
       });
     }
   },[nodes_json]);
-  useEffect(()=>{
-    containerEle.current.addEventListener('contextmenu',handleContextMenu);
-    return () => {
-      containerEle.current.removeEventListener('contextmenu',handleContextMenu);
-    };
-  },[]);
   const overallClick = () => {
     if (currentNode) {
       useNodeStateHook.selectNode('');
     }
+    useGlobalHook.setContextMenu();
   }
   const handleContextMenu = (event) => {
+    event.persist()
     event.preventDefault();
+    if(event.target.getAttribute('data-type') == 'node'){
+      useNodeStateHook.selectNode(event.target.id);
+      useGlobalHook.setContextMenu({
+        x: event.clientX,
+        y: event.clientY,
+        visible: true
+      })
+    }
   }
 
   const createNode = () => {
@@ -111,6 +116,7 @@ const Main = (props, ref) => {
       return (
         <>
           <NodeList node_refs={node_refs} />
+          <ContextMenu />
           <LineCanvas parent_ref={self} node_refs={node_refs} />
         </>
       )
@@ -120,7 +126,7 @@ const Main = (props, ref) => {
   };
 
   return (
-    <div className={cssModule.container_root} onClick={overallClick} ref={containerEle}>
+    <div className={cssModule.container_root} onClick={overallClick} ref={containerEle} onContextMenu={handleContextMenu}>
       <main className={cssModule.main_root} style={mainMatrix} ref={self}>
         {createNode()}
       </main>
