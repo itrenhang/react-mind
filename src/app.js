@@ -26,9 +26,6 @@ const AppTest = () => {
   const insertIcon = () => {
     webMind.current.insertIcon({url:'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg',sort:1});
   }
-  const insertIcon2 = () => {
-    webMind.current.insertIcon({url:'https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3892521478,1695688217&fm=26&gp=0.jpg',sort:0});
-  }
   const undo = () => {
     webMind.current.undo();
   }
@@ -44,7 +41,6 @@ const AppTest = () => {
         addParent={addParent}
         deleteNode={deleteNode}
         insertIcon={insertIcon}
-        insertIcon2={insertIcon2}
         undo={undo}
         redo={redo}
       >

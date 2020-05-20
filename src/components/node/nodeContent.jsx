@@ -16,7 +16,6 @@ const NodeContent = props => {
 
   const { content, className } = props;
   const { text = '', icon = [] } = content;
-  console.log(icon);
   const newClass = `${className} ${cssModule.content_container}`
 
   return (

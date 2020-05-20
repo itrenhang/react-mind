@@ -1,4 +1,4 @@
-import { findNode, deepCopy, cteateNode, createParentNode } from "../../../methods/nodeFunction";
+import { findNode, deepCopy, cteateNode, createParentNode,iconSort } from "../../../methods/nodeFunction";
 
 const defaultNodes = {
   nodes: cteateNode({ id: "root", ZIndex: "1", content: "新建脑图" })
@@ -20,9 +20,10 @@ export const nodeData = {
           let node = {}
           if (action.payload.icon) {
             const icon = deepCopy(node_found.content.icon);
-            icon[action.payload.icon.sort] = action.payload.icon;
+            const newIcon = iconSort(icon,action.payload.icon);
             node = {...node_found};
-            node.content.icon = [...icon]
+            node.content.icon = [...newIcon]
+            console.log(newIcon);
           } else {
             node = { ...action.payload.node }
           }

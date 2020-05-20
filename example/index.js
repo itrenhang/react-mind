@@ -14,7 +14,6 @@ const Example = props => {
         <button onClick={props.undo}>撤销</button>
         <button onClick={props.redo}>恢复</button>
         <button onClick={props.insertIcon}>插入ICON</button>
-        <button onClick={props.insertIcon2}>插入ICON2</button>
       </div>
       <div className={cssModule.map}>{props.children}</div>
     </>

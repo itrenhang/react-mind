@@ -9,12 +9,12 @@ export const deepCopy = obj => {
 
 export const findNode = (node, search_id) => {
   if (node.id === search_id) {
-      return node;
+    return node;
   }
   return node.children.map(child => findNode(child, search_id)).find(item => item);
 };
 
-export const cteateNode = ({ id, parentId, ZIndex, content }={}) => {
+export const cteateNode = ({ id, parentId, ZIndex, content } = {}) => {
   id = id || md5("" + Date.now() + Math.random());
   content = content || "新建节点";
   parentId = parentId || null;
@@ -31,8 +31,8 @@ export const cteateNode = ({ id, parentId, ZIndex, content }={}) => {
 
 const nodeZIndexPlus = (node) => {
   node.ZIndex++;
-  if(node.children && node.children.length > 0){
-    for(let i=0;i<node.children.length;i++){
+  if (node.children && node.children.length > 0) {
+    for (let i = 0; i < node.children.length; i++) {
       nodeZIndexPlus(node.children[i])
     }
   }
@@ -40,7 +40,7 @@ const nodeZIndexPlus = (node) => {
 };
 
 export const createParentNode = (parent_node, node, new_parentNode) => {
-  
+
   new_parentNode.ZIndex = +node.ZIndex;
   new_parentNode.parentId = parent_node.id;
   node.parentId = new_parentNode.id;
@@ -49,13 +49,37 @@ export const createParentNode = (parent_node, node, new_parentNode) => {
   return new_parentNode;
 };
 
-export const debounce=(func,wait)=>{
-  let timer=null;
-  return function(){
-    if(timer) clearTimeout(timer);
-    timer=setTimeout(()=>{
-      func.apply(this,arguments);
-    },wait)
+export const debounce = (func, wait) => {
+  let timer = null;
+  return function () {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, arguments);
+    }, wait)
   }
 
+}
+
+export const iconSort = (iconList, icon) => {
+  if (iconList.length <= 0) {
+    return [icon];
+  }
+  const newAry = []
+  let isHave = false
+  for (let i = 0; i < iconList.length; i++) {
+    const item = iconList[i];
+    if (icon.sort == item.sort && !isHave) {
+      item = icon;
+      isHave = true;
+    }
+    if (icon.sort < item.sort && !isHave) {
+      newAry.push(icon);
+      isHave = true;
+    }
+    newAry.push(item);
+    if (i >= iconList.length - 1 && icon.sort > item.sort) {
+      newAry.push(icon);
+    }
+  }
+  return newAry;
 }
