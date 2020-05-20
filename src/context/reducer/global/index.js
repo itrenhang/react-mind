@@ -3,6 +3,7 @@ export const global = {
     theme: "primary",
     mindType: "mindMap",
     zoom:1,
+    contextMenuOpt:{},
     containerOption: {
       w: 0,
       h: 0
@@ -25,6 +26,10 @@ export const global = {
         mapPos.x = containerOption.w/2 - nodeRootOption.x - nodeRootOption.w/2;
         mapPos.y = containerOption.h/2 - nodeRootOption.y - nodeRootOption.h/2;
         return { ...state, ...{mapPos} };
+      case "global/contextMenu":
+          const {contextMenuOpt} = action.payload;
+          return { ...state, ...{contextMenuOpt} };
+        return;
       default:
         return state;
     }

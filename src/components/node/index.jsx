@@ -49,11 +49,13 @@ const Node = ({data, node_refs}) => {
   const nodeClick = (id, e) => {
     e.stopPropagation();
     useNodeStateHook.selectNode(id);
+    useGlobalHook.setContextMenu();
   };
 
   const editClick = (id, e) => {
     e.stopPropagation();
     useNodeStateHook.editNode(id);
+    useGlobalHook.setContextMenu();
   };
 
   // 发送编辑成功
