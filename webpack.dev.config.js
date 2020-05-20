@@ -36,6 +36,7 @@ module.exports = {
     extensions: [".js", ".jsx"],
     alias:{
       '@context':path.resolve('src/context'),
+      '@components':path.resolve('src/components'),
     }
   },
   devServer: {

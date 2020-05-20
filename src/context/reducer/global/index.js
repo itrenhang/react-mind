@@ -4,6 +4,7 @@ export const global = {
     mindType: "mindMap",
     zoom:1,
     contextMenuOpt:{},
+    modalLinkAndRemarks:'link',
     containerOption: {
       w: 0,
       h: 0

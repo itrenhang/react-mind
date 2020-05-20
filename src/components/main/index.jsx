@@ -15,6 +15,7 @@ import cssModule from "./index.css";
 import { context } from "@context";
 import LineCanvas from "../lineCanvas";
 import ContextMenu from "../ContextMenu";
+import LinkAndRemarks from "@components/linkAndRemarks";
 
 const node_refs = new Map();
 const Main = (props, ref) => {
@@ -25,7 +26,7 @@ const Main = (props, ref) => {
 
   const {
     global: {
-      state: { mapPos }
+      state: { mapPos, modalLinkAndRemarks }
     },
     nodeData: {
       state: { nodes }
@@ -111,6 +112,7 @@ const Main = (props, ref) => {
         <>
           <NodeList node_refs={node_refs} />
           <ContextMenu />
+          {modalLinkAndRemarks && <LinkAndRemarks type={modalLinkAndRemarks} />}
           <LineCanvas parent_ref={self} node_refs={node_refs} />
         </>
       );
