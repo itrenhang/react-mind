@@ -37,7 +37,6 @@ export const nodeData = {
         }
       case "nodeData/setMapData":
         nodes = payload.data;
-        console.log(nodes)
         if (nodes instanceof Object && Object.keys(nodes).length > 0) {
           return { ...new_state, nodes };
         } else {
