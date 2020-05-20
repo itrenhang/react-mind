@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useContext,
-  useRef,
+  useRef
 } from "react";
 import NodeList from "../nodeList";
 import useGlobal from "@context/reducer/global/useGlobal";
@@ -13,8 +13,8 @@ import useNodeState from "@context/reducer/nodeState/useNodeState";
 import useHistory from "@context/reducer/history/useHistory";
 import cssModule from "./index.css";
 import { context } from "@context";
-import LineCanvas from '../lineCanvas';
-import ContextMenu from '../ContextMenu';
+import LineCanvas from "../lineCanvas";
+import ContextMenu from "../ContextMenu";
 
 const node_refs = new Map();
 const Main = (props, ref) => {
@@ -27,8 +27,12 @@ const Main = (props, ref) => {
     global: {
       state: { mapPos }
     },
-    nodeData: { state: { nodes } },
-    nodeState: { state: { currentNode } },
+    nodeData: {
+      state: { nodes }
+    },
+    nodeState: {
+      state: { currentNode }
+    }
   } = useContext(context);
 
   const containerEle = useRef(null);
@@ -60,7 +64,7 @@ const Main = (props, ref) => {
       useNodeDataHook.deleteNode(currentNode);
     },
     insertIcon(icon) {
-      useNodeDataHook.modifyNode({icon,id:currentNode});
+      useNodeDataHook.modifyNode({ icon, id: currentNode });
     },
     undo() {
       useHistoryHook.undo();
@@ -68,57 +72,60 @@ const Main = (props, ref) => {
     redo() {
       useHistoryHook.redo();
     },
-    moveUp(){
+    moveUp() {
       useNodeDataHook.moveUp(currentNode);
     },
-    moveDown(){
+    moveDown() {
       useNodeDataHook.moveDown(currentNode);
-    },
+    }
   }));
   useEffect(() => {
-    if ((data.data instanceof Object && Object.keys(data.data).length > 0) || !data.data) {
-      useNodeDataHook.setMapData(data);
-      useGlobalHook.setContainerSize({
-        w: containerEle.current.offsetWidth,
-        h: containerEle.current.offsetHeight
-      });
-    }
+    useNodeDataHook.setMapData(data);
+    useGlobalHook.setContainerSize({
+      w: containerEle.current.offsetWidth,
+      h: containerEle.current.offsetHeight
+    });
   }, []);
-  useEffect(()=>{
-    if(Object.keys(nodes).length > 0){
+  useEffect(() => {
+    if (Object.keys(nodes).length > 0) {
       useHistoryHook.setHistory({
-        nodes:nodes_json,
+        nodes: nodes_json,
         currentNode
       });
     }
-  },[nodes_json]);
+  }, [nodes_json]);
   const overallClick = () => {
     if (currentNode) {
-      useNodeStateHook.selectNode('');
+      useNodeStateHook.selectNode("");
     }
     useGlobalHook.setContextMenu();
-  }
-  const handleContextMenu = (event) => {
-    event.persist()
+  };
+  const handleContextMenu = event => {
+    event.persist();
     event.preventDefault();
-  }
+  };
 
   const createNode = () => {
-    if(Object.keys(nodes).length > 0){
+    if (Object.keys(nodes).length > 0) {
       return (
         <>
           <NodeList node_refs={node_refs} />
           <ContextMenu />
           <LineCanvas parent_ref={self} node_refs={node_refs} />
         </>
-      )
-    }else{
+      );
+    } else {
       return null;
     }
   };
 
   return (
-    <div className={cssModule.container_root} onClick={overallClick} ref={containerEle} onContextMenu={handleContextMenu}>
+    <div
+      className={cssModule.container_root}
+      onClick={overallClick}
+      ref={containerEle}
+      onContextMenu={handleContextMenu}
+    >
       <main className={cssModule.main_root} style={mainMatrix} ref={self}>
         {createNode()}
       </main>

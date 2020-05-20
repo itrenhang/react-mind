@@ -1,7 +1,7 @@
 import { findNode, deepCopy, cteateNode, createParentNode,iconSort } from "../../../methods/nodeFunction";
 
 const defaultNodes = {
-  nodes: cteateNode({ id: "root", ZIndex: "1", content: "新建脑图" })
+  nodes: cteateNode({ id: "root", ZIndex: "1", content:{text:'新建脑图'}})
 };
 export const nodeData = {
   state: {
@@ -37,6 +37,7 @@ export const nodeData = {
         }
       case "nodeData/setMapData":
         nodes = payload.data;
+        console.log(nodes)
         if (nodes instanceof Object && Object.keys(nodes).length > 0) {
           return { ...new_state, nodes };
         } else {

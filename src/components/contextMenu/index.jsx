@@ -62,7 +62,7 @@ const ContextMenu = () => {
     {
       name: "下级",
       shortcut: "Tap",
-      handle(d) {
+      handle(e) {
         hideContextMenu(e);
         useNodeDataHook.addChild(currentNode);
       }
