@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useContext } from "react";
 import cssModule from "./index.css";
-import EditContainer from "./edit.jsx";
 import NodeContent from "./nodeContent.jsx";
 import useNodeData from "@context/reducer/nodeData/useNodeData";
 import useNodeState from "@context/reducer/nodeState/useNodeState";
 import { context } from "@context";
 import useGlobal from "@context/reducer/global/useGlobal";
 
-const Node = ({data, node_refs}) => {
+const Node = ({ data, node_refs }) => {
   const self = useRef(null);
   const useNodeDataHook = useNodeData();
   const useNodeStateHook = useNodeState();
@@ -34,7 +33,7 @@ const Node = ({data, node_refs}) => {
         });
       }
     }
-    return ()=>{
+    return () => {
       node_refs.delete(data.id);
     }
   }, []);
@@ -61,7 +60,7 @@ const Node = ({data, node_refs}) => {
   const finishEditing = text => {
     const node = {
       ...data,
-      content:{
+      content: {
         ...data.content,
         text,
       }
@@ -75,14 +74,12 @@ const Node = ({data, node_refs}) => {
       onClick={e => nodeClick(data.id, e)}
       onDoubleClick={e => editClick(data.id, e)}
       className={className} ref={self}>
-      {editNode === data.id &&
-        <EditContainer finishEditing={finishEditing}>
-          {data.content.text}
-        </EditContainer>
-      }
-      <NodeContent className={cls} content={data.content} />
-      {/* <p className={cls} dangerouslySetInnerHTML={{ __html: data.content }} /> */}
-    </div >
+      <NodeContent
+        className={cls}
+        finishEditing={finishEditing}
+        canEdit={editNode === data.id}
+        content={data.content} />
+    </div>
   )
 
 }

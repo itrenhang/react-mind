@@ -1,13 +1,4 @@
-<<<<<<< HEAD
 import { findNode, deepCopy, cteateNode, createParentNode,iconSort } from "../../../methods/nodeFunction";
-=======
-import {
-  findNode,
-  deepCopy,
-  cteateNode,
-  createParentNode
-} from "../../../methods/nodeFunction";
->>>>>>> 408f75416680591406f70d626ff648c4601c5f97
 
 const defaultNodes = {
   nodes: cteateNode({ id: "root", ZIndex: "1", content: "新建脑图" })
@@ -29,7 +20,6 @@ export const nodeData = {
           node_found instanceof Object &&
           Object.keys(node_found).length > 0
         ) {
-<<<<<<< HEAD
           let node = {}
           if (action.payload.icon) {
             const icon = deepCopy(node_found.content.icon);
@@ -41,9 +31,6 @@ export const nodeData = {
             node = { ...action.payload.node }
           }
           Object.assign(node_found, node);
-=======
-          Object.assign(node_found, payload.node);
->>>>>>> 408f75416680591406f70d626ff648c4601c5f97
           return new_state;
         } else {
           return state;
@@ -80,19 +67,11 @@ export const nodeData = {
         }
         return new_state;
       case "nodeData/deleteNode":
-<<<<<<< HEAD
-        new_state = deepCopy(state);
-        node_found = findNode(new_state.nodes, action.payload.id);
-        parent_node = findNode(new_state.nodes, node_found.parentId);
-        if (parent_node) {
-          index = parent_node.children.findIndex(node => node.id === action.payload.id);
-=======
         parent_node = findNode(new_state.nodes, node_found.parentId);
         if (parent_node) {
           index = parent_node.children.findIndex(
             node => node.id === payload.id
           );
->>>>>>> 408f75416680591406f70d626ff648c4601c5f97
           parent_node.children.splice(index, 1);
         }
         return new_state;
