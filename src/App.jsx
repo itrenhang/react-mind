@@ -7,33 +7,39 @@ import './app.css';
 const App = (props, ref) => {
   const mindRef = useRef(null);
   useImperativeHandle(ref,()=>({
-    setTheme(val){
+    setTheme(val){  // 设置主题
       mindRef.current.setTheme(val);
     },
-    setMapCenter(){
+    setMapCenter(){  // 设置居中
       mindRef.current.setMapCenter();
     },
-    addChild() {
+    addChild() {  //插入子节点
       mindRef.current.addChild();
     },
-    addSub() {
+    addSub() {  //插入兄弟节点
       mindRef.current.addSub();
     },
-    addParent() {
+    addParent() {  //插入父节点
       mindRef.current.addParent();
     },
-    deleteNode() {
+    deleteNode() {  //删除节点
       mindRef.current.deleteNode();
     },
     insertIcon(val) {
       mindRef.current.insertIcon(val);
     },
-    undo() {
+    undo() {  // 撤销
       mindRef.current.undo();
     },
-    redo() {
+    redo() {  //恢复
       mindRef.current.redo();
-    }
+    },
+    moveUp(){  //上移
+      mindRef.current.moveUp();
+    },
+    moveDown(){ //下移
+      mindRef.current.moveDown();
+    },
   }))
   return (
     <Provider>

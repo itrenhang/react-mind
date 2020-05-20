@@ -90,6 +90,28 @@ const useNodeData = () => {
           }
         });
       }
+    },
+    moveUp(id) {
+      if (id) {
+        nDispatch({
+          type: "nodeData/moveLayer",
+          payload: {
+            id,
+            direction: 1
+          }
+        });
+      }
+    },
+    moveDown(id) {
+      if (id) {
+        nDispatch({
+          type: "nodeData/moveLayer",
+          payload: {
+            id,
+            direction: -1
+          }
+        });
+      }
     }
   };
 };

@@ -5,7 +5,9 @@ const Example = props => {
   return (
     <>
       <div className={cssModule.tool}>
-        <button onClick={props.setMapCenter}>居中</button>
+      <button onClick={props.setMapCenter}>居中</button>
+        <button onClick={props.moveUp}>上移</button>
+        <button onClick={props.moveDown}>下移</button>
         <button onClick={props.setTheme}>修改主题</button>
         <button onClick={props.addChild}>插入子级</button>
         <button onClick={props.addSub}>插入同级</button>

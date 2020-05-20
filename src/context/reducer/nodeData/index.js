@@ -1,4 +1,13 @@
+<<<<<<< HEAD
 import { findNode, deepCopy, cteateNode, createParentNode,iconSort } from "../../../methods/nodeFunction";
+=======
+import {
+  findNode,
+  deepCopy,
+  cteateNode,
+  createParentNode
+} from "../../../methods/nodeFunction";
+>>>>>>> 408f75416680591406f70d626ff648c4601c5f97
 
 const defaultNodes = {
   nodes: cteateNode({ id: "root", ZIndex: "1", content: "新建脑图" })
@@ -8,15 +17,19 @@ export const nodeData = {
     nodes: {}
   },
   reducers(state, action) {
-    let nodes, node_found, new_state, parent_node, index;
+    let nodes, node_found, new_state, parent_node, index, payload;
+    payload = action.payload;
+    new_state = deepCopy(state);
+    if(payload.id){
+      node_found = findNode(new_state.nodes, payload.id);
+    }
     switch (action.type) {
       case "nodeData/modifyNode":
-        new_state = deepCopy(state);
-        node_found = findNode(new_state.nodes, action.payload.id);
         if (
           node_found instanceof Object &&
           Object.keys(node_found).length > 0
         ) {
+<<<<<<< HEAD
           let node = {}
           if (action.payload.icon) {
             const icon = deepCopy(node_found.content.icon);
@@ -28,55 +41,73 @@ export const nodeData = {
             node = { ...action.payload.node }
           }
           Object.assign(node_found, node);
+=======
+          Object.assign(node_found, payload.node);
+>>>>>>> 408f75416680591406f70d626ff648c4601c5f97
           return new_state;
         } else {
           return state;
         }
       case "nodeData/setMapData":
-        new_state = deepCopy(state);
-        nodes = action.payload.data;
+        nodes = payload.data;
         if (nodes instanceof Object && Object.keys(nodes).length > 0) {
           return { ...new_state, nodes };
         } else {
           return { ...new_state, ...defaultNodes };
         }
       case "nodeData/addChild":
-        new_state = deepCopy(state);
-        node_found = findNode(new_state.nodes, action.payload.id);
-        action.payload.node.ZIndex = +node_found.ZIndex + 1;
-        action.payload.node.parentId = action.payload.id;
-        node_found.children.push(action.payload.node);
+        payload.node.ZIndex = +node_found.ZIndex + 1;
+        payload.node.parentId = payload.id;
+        node_found.children.push(payload.node);
         return new_state;
       case "nodeData/addSub":
-        new_state = deepCopy(state);
-        node_found = findNode(new_state.nodes, action.payload.id);
         parent_node = findNode(new_state.nodes, node_found.parentId);
-        action.payload.node.ZIndex = +node_found.ZIndex;
-        action.payload.node.parentId = node_found.parentId;
-        parent_node.children.push(action.payload.node);
+        payload.node.ZIndex = +node_found.ZIndex;
+        payload.node.parentId = node_found.parentId;
+        parent_node.children.push(payload.node);
         return new_state;
       case "nodeData/addParent":
-        new_state = deepCopy(state);
-        node_found = findNode(new_state.nodes, action.payload.id);
         parent_node = findNode(new_state.nodes, node_found.parentId);
         if (parent_node) {
-          index = parent_node.children.findIndex(node => node.id === action.payload.id);
+          index = parent_node.children.findIndex(
+            node => node.id === payload.id
+          );
           parent_node.children.splice(
             index,
             1,
-            createParentNode(parent_node, node_found, action.payload.node)
+            createParentNode(parent_node, node_found, payload.node)
           );
         }
         return new_state;
       case "nodeData/deleteNode":
+<<<<<<< HEAD
         new_state = deepCopy(state);
         node_found = findNode(new_state.nodes, action.payload.id);
         parent_node = findNode(new_state.nodes, node_found.parentId);
         if (parent_node) {
           index = parent_node.children.findIndex(node => node.id === action.payload.id);
+=======
+        parent_node = findNode(new_state.nodes, node_found.parentId);
+        if (parent_node) {
+          index = parent_node.children.findIndex(
+            node => node.id === payload.id
+          );
+>>>>>>> 408f75416680591406f70d626ff648c4601c5f97
           parent_node.children.splice(index, 1);
         }
         return new_state;
+      case "nodeData/moveLayer":
+        parent_node = findNode(new_state.nodes, node_found.parentId);
+        if (parent_node) {
+          index = parent_node.children.findIndex(
+            node => node.id === payload.id
+          );
+          if((index - payload.direction > -1 && index - payload.direction < parent_node.children.length)){
+            parent_node.children[index] = parent_node.children.splice(index - payload.direction, 1, parent_node.children[index])[0];
+            return new_state;
+          }
+        }
+        return state;
       default:
         return state;
     }

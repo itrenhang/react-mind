@@ -32,6 +32,12 @@ const AppTest = () => {
   const redo = () => {
     webMind.current.redo();
   }
+  const moveUp = () => {
+    webMind.current.moveUp();
+  }
+  const moveDown = () => {
+    webMind.current.moveDown();
+  }
   return (
     <Example
         setTheme={setTheme}
@@ -43,6 +49,8 @@ const AppTest = () => {
         insertIcon={insertIcon}
         undo={undo}
         redo={redo}
+        moveUp={moveUp}
+        moveDown={moveDown}
       >
       <WebMind data={testData} ref={webMind} />
     </Example>
