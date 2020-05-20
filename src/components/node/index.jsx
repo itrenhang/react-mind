@@ -76,7 +76,7 @@ const Node = ({data, node_refs}) => {
           {data.content}
         </EditContainer>
       }
-      <p className={cls} dangerouslySetInnerHTML={{ __html: data.content }} />
+      <p id={data.id} data-type="node" className={cls} dangerouslySetInnerHTML={{ __html: data.content }} />
     </div >
   )
 
