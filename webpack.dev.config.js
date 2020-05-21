@@ -1,5 +1,6 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const copyPath = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -17,26 +18,27 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use:[
+        use: [
           'style-loader',
           {
             loader: 'css-loader',
-            options:{
+            options: {
               modules: {
                 localIdentName: '[path][name]__[local]--[hash:base64:5]'
               },
-              
+
             }
           }
         ]
-      }
+      },
     ]
   },
   resolve: {
     extensions: [".js", ".jsx"],
-    alias:{
-      '@context':path.resolve('src/context'),
-      '@components':path.resolve('src/components'),
+    alias: {
+      '@context': path.resolve('src/context'),
+      '@components': path.resolve('src/components'),
+      '@assets': path.resolve('src/assets'),
     }
   },
   devServer: {
@@ -45,6 +47,14 @@ module.exports = {
   plugins: [
     new htmlWebpackPlugin({
       template: 'public/index.html'
+    }),
+    new copyPath({
+      patterns:[
+        {
+          from:'src/assets',
+          to:'assets'
+        }
+      ]
     })
   ],
 };

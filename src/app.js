@@ -26,6 +26,9 @@ const AppTest = () => {
   const insertIcon = () => {
     webMind.current.insertIcon({url:'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg',sort:1});
   }
+  const insertLink = () => {
+    webMind.current.insertLink();
+  }
   const undo = () => {
     webMind.current.undo();
   }
@@ -47,6 +50,7 @@ const AppTest = () => {
         addParent={addParent}
         deleteNode={deleteNode}
         insertIcon={insertIcon}
+        insertLink={insertLink}
         undo={undo}
         redo={redo}
         moveUp={moveUp}

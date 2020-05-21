@@ -16,6 +16,12 @@ const useNodeData = () => {
         }
       });
     },
+    modifyContent(data) {
+      nDispatch({
+        type: 'nodeData/modifyContent',
+        payload: { ...data }
+      })
+    },
     setMapData(node) {
       nDispatch({
         type: "nodeData/setMapData",
@@ -118,7 +124,7 @@ const useNodeData = () => {
         nDispatch({
           type: "nodeData/expand",
           payload: {
-            id, 
+            id,
             expanded
           }
         });

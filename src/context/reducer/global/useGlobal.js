@@ -45,6 +45,12 @@ const useGlobal = () => {
           contextMenuOpt: option || {x: 0,y: 0,visible: false},
         }
       });
+    },
+    setModalLinkAndRemarks(option){
+      gDispatch({
+        type:'global/setModalLinkAndRemarks',
+        payload: option,
+      })
     }
   };
 };

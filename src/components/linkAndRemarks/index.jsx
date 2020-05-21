@@ -1,31 +1,50 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import Modal from '@components/Modal';
+import Styles from './index.css';
+import Link from './link'
+import { context } from "@context";
+import useGlobal from "@context/reducer/global/useGlobal";
+import useNodeData from "@context/reducer/nodeData/useNodeData";
 
-const Link = () => {
-  const [val, setVal] = useState({});
 
+const LinkAndRemarks = () => {
+  const {
+    global: { state: { modalLinkAndRemarks } },
+    nodeState: { state: { currentNode } }
+  } = useContext(context);
+
+  const useGlobalHook = useGlobal();
+  const useNodeDataHook = useNodeData();
+
+  const btnStyles = {
+    backgroundColor: '#1890ff',
+    borderColor: '#1890ff',
+    color: '#fff'
+  }
+
+  const cancel = () => {
+    useGlobalHook.setModalLinkAndRemarks('');
+  }
+
+  const sumBit = val => {
+    const obj = {
+      id:currentNode,
+      link: {
+        url: val.link,
+        remarks: val.remarks
+      }
+    }
+    useNodeDataHook.modifyContent(obj);
+    cancel()
+  }
+
+  if (!modalLinkAndRemarks) {
+    return null;
+  }
   return (
-    <form>
-      <div>
-        <label htmlFor="">请输入链接</label>
-        <input type="text" />
-      </div>
-      <div>
-        <label htmlFor="">请输入备注</label>
-        <input type="text" />
-      </div>
-    </form>
-  )
-}
-
-const LinkAndRemarks = props => {
-  const { type } = props;
-
-
-  return (
-    <Modal visible={true}>
-      <Link />
+    <Modal visible={true} title="链接" onCancel={cancel}>
+      <Link btnStyles={btnStyles} onSub={sumBit} onCancel={cancel} />
     </Modal>
   )
 }

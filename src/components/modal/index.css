@@ -10,7 +10,14 @@
   align-items: center;
 }
 .modal_content{
-  padding: 15px;
   background-color: #fff;
   border-radius: 15px;
+}
+.modal_content_title{
+  padding: 15px;
+  font-weight: 500;
+  font-size: 24px;
+}
+.modal_content_info{
+  padding: 15px;
 }

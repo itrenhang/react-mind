@@ -80,3 +80,9 @@
   border: 1px solid #ccc;
   border-radius: 12px;
 }
+.link{
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -62,7 +62,7 @@ export const debounce = (func, wait) => {
 }
 
 export const iconSort = (iconList, icon) => {
-  if (iconList.length <= 0) {
+  if (!iconList.length) {
     return [icon];
   }
   const newAry = []

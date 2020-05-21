@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "file-loader": "^6.0.0",
     "md5": "^2.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
@@ -28,6 +29,7 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^6.0.1",
     "css-loader": "^3.5.3",
     "html-webpack-plugin": "^4.3.0",
     "style-loader": "^1.2.1",

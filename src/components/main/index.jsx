@@ -26,7 +26,7 @@ const Main = (props, ref) => {
 
   const {
     global: {
-      state: { mapPos, modalLinkAndRemarks }
+      state: { mapPos }
     },
     nodeData: {
       state: { nodes }
@@ -65,7 +65,10 @@ const Main = (props, ref) => {
       useNodeDataHook.deleteNode(currentNode);
     },
     insertIcon(icon) {
-      useNodeDataHook.modifyNode({ icon, id: currentNode });
+      useNodeDataHook.modifyContent({ icon, id: currentNode });
+    },
+    insertLink() {
+      useGlobalHook.setModalLinkAndRemarks('link');
     },
     undo() {
       useHistoryHook.undo();
@@ -112,7 +115,7 @@ const Main = (props, ref) => {
         <>
           <NodeList node_refs={node_refs} />
           <ContextMenu />
-          {modalLinkAndRemarks && <LinkAndRemarks type={modalLinkAndRemarks} />}
+          <LinkAndRemarks />
           <LineCanvas parent_ref={self} node_refs={node_refs} />
         </>
       );

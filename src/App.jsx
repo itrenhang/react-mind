@@ -28,6 +28,9 @@ const App = (props, ref) => {
     insertIcon(val) {
       mindRef.current.insertIcon(val);
     },
+    insertLink() {
+      mindRef.current.insertLink();
+    },
     undo() {  // 撤销
       mindRef.current.undo();
     },

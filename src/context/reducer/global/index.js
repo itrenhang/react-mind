@@ -2,9 +2,9 @@ export const global = {
   state: {
     theme: "primary",
     mindType: "mindMap",
-    zoom:1,
-    contextMenuOpt:{},
-    modalLinkAndRemarks:'link',
+    zoom: 1,
+    contextMenuOpt: {},
+    modalLinkAndRemarks: '',
     containerOption: {
       w: 0,
       h: 0
@@ -22,15 +22,16 @@ export const global = {
       case "global/setMapPos":
         return { ...state, ...action.payload };
       case "global/setMapPosCenter":
-        const {nodeRootOption} = action.payload;
+        const { nodeRootOption } = action.payload;
         const { mapPos, containerOption } = state;
-        mapPos.x = containerOption.w/2 - nodeRootOption.x - nodeRootOption.w/2;
-        mapPos.y = containerOption.h/2 - nodeRootOption.y - nodeRootOption.h/2;
-        return { ...state, ...{mapPos} };
+        mapPos.x = containerOption.w / 2 - nodeRootOption.x - nodeRootOption.w / 2;
+        mapPos.y = containerOption.h / 2 - nodeRootOption.y - nodeRootOption.h / 2;
+        return { ...state, ...{ mapPos } };
       case "global/contextMenu":
-          const {contextMenuOpt} = action.payload;
-          return { ...state, ...{contextMenuOpt} };
-        return;
+        const { contextMenuOpt } = action.payload;
+        return { ...state, ...{ contextMenuOpt } };
+      case "global/setModalLinkAndRemarks":
+        return { ...state, modalLinkAndRemarks: action.payload };
       default:
         return state;
     }

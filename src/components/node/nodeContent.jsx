@@ -6,24 +6,23 @@ const Text = props => <div dangerouslySetInnerHTML={{ __html: props.data }} />;
 
 const Icon = props => (
   <div>
-    {props.data.map(item => {
-      if (item) {
-        return (
-          <img
-            key={item.sort}
-            className={cssModule.content_img}
-            src={item.url}
-            alt=""
-          />
-        );
-      }
-      return null;
-    })}
+    {props.data.map(item => (<img
+      key={item.sort}
+      className={cssModule.content_img}
+      src={item.url}
+      alt="" />))}
   </div>
 );
-const Expended = ({data, setExpend}) => {
-  const content = data.expanded?'-':'+';
-  if(data.ZIndex == 1 || data.children.length < 1){
+
+const Link = props => (
+  <a className={cssModule.link} href={props.data.url} title={props.data.remarks} target="_blank">
+    <img src="/assets/img/link.png" alt="" />
+  </a>
+);
+
+const Expended = ({ data, setExpend }) => {
+  const content = data.expanded ? '-' : '+';
+  if (data.ZIndex == 1 || data.children.length < 1) {
     return null;
   }
   return (
@@ -33,7 +32,7 @@ const Expended = ({data, setExpend}) => {
 
 const NodeContent = props => {
   const { className, canEdit, finishEditing, data } = props;
-  const { text = "", icon = [] } = data.content;
+  const { text = "", icon = [], link = {} } = data.content;
   const newClass = `${className} ${cssModule.content_container}`;
 
   return (
@@ -46,6 +45,7 @@ const NodeContent = props => {
             <EditContainer finishEditing={finishEditing}>{text}</EditContainer>
           )}
         </div>
+        {'url' in link && <Link data={link}/>}
       </div>
       <Expended data={data} setExpend={props.setExpend} />
     </>
