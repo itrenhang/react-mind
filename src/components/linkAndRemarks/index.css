@@ -1,7 +1,7 @@
 .link {
   margin: 10px auto;
 }
-.link input {
+.link input, .textarea {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -21,7 +21,15 @@
   border-radius: 2px;
   transition: all .3s;
 }
-.link input:hover,.link input:focus{
+.textarea{
+  resize: none;
+  width: 300px;
+  height: 200px;
+}
+.textarea:hover,
+.textarea:focus,
+.link input:hover,
+.link input:focus{
   border-color: #40a9ff;
   border-width: 1px!important;
   outline:none

@@ -70,6 +70,9 @@ const Main = (props, ref) => {
     insertLink() {
       useGlobalHook.setModalLinkAndRemarks('link');
     },
+    insertRemarks() {
+      useGlobalHook.setModalLinkAndRemarks('remarks');
+    },
     undo() {
       useHistoryHook.undo();
     },

@@ -25,11 +25,14 @@ const App = (props, ref) => {
     deleteNode() {  //删除节点
       mindRef.current.deleteNode();
     },
-    insertIcon(val) {
+    insertIcon(val) { //插入icon
       mindRef.current.insertIcon(val);
     },
-    insertLink() {
+    insertLink() { // 插入链接
       mindRef.current.insertLink();
+    },
+    insertRemarks() { // 插入备注
+      mindRef.current.insertRemarks();
     },
     undo() {  // 撤销
       mindRef.current.undo();

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import cssModule from "./index.css";
 import EditContainer from "./edit.jsx";
+import Popconfirm from '@components/popconfirm'
 
 const Text = props => <div dangerouslySetInnerHTML={{ __html: props.data }} />;
 
@@ -20,6 +21,22 @@ const Link = props => (
   </a>
 );
 
+const Remarks = props => {
+  const [isVis, setIsVis] = useState(false);
+
+  return (
+    <div
+      className={cssModule.remarks}
+      onMouseOver={() => setIsVis(true)}
+      onMouseOut={() => { setIsVis(false) }}>
+      <img src="/assets/img/remarks.png" alt="" />
+      <Popconfirm style={{width:'148px'}} visible={isVis}>
+        {props.data}
+      </Popconfirm>
+    </div>
+  )
+}
+
 const Expended = ({ data, setExpend }) => {
   const content = data.expanded ? '-' : '+';
   if (data.ZIndex == 1 || data.children.length < 1) {
@@ -32,7 +49,7 @@ const Expended = ({ data, setExpend }) => {
 
 const NodeContent = props => {
   const { className, canEdit, finishEditing, data } = props;
-  const { text = "", icon = [], link = {} } = data.content;
+  const { text = "", icon = [], link = {}, remarks = "" } = data.content;
   const newClass = `${className} ${cssModule.content_container}`;
 
   return (
@@ -45,7 +62,8 @@ const NodeContent = props => {
             <EditContainer finishEditing={finishEditing}>{text}</EditContainer>
           )}
         </div>
-        {'url' in link && <Link data={link}/>}
+        {'url' in link && <Link data={link} />}
+        {remarks && <Remarks data={remarks} />}
       </div>
       <Expended data={data} setExpend={props.setExpend} />
     </>

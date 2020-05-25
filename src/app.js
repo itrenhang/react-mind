@@ -29,6 +29,9 @@ const AppTest = () => {
   const insertLink = () => {
     webMind.current.insertLink();
   }
+  const insertRemarks = () => {
+    webMind.current.insertRemarks();
+  }
   const undo = () => {
     webMind.current.undo();
   }
@@ -51,6 +54,7 @@ const AppTest = () => {
         deleteNode={deleteNode}
         insertIcon={insertIcon}
         insertLink={insertLink}
+        insertRemarks={insertRemarks}
         undo={undo}
         redo={redo}
         moveUp={moveUp}

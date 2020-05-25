@@ -27,17 +27,21 @@ export const nodeData = {
         }
 
       case 'nodeData/modifyContent':
-        const node = { ...node_found };
-        if (action.payload.icon) {
-          const icon = deepCopy(node_found.content.icon);
-          const newIcon = iconSort(icon, action.payload.icon);
-          node.content.icon = [...newIcon]
+        if (
+          node_found instanceof Object &&
+          Object.keys(node_found).length > 0
+        ) {
+          const node = { ...node_found };
+          if (action.payload.icon) {
+            const icon = deepCopy(node_found.content.icon);
+            const newIcon = iconSort(icon, action.payload.icon);
+            node.content.icon = [...newIcon]
+          }
+          node.content = { ...node.content, ...action.payload }
+          Object.assign(node_found, node);
+          return new_state;
         }
-        node.content = {...node.content,...action.payload}
-        Object.assign(node_found, node);
-        console.log('0--',node);
-        console.log('1--',action);
-        return new_state;
+        return state;
 
       case "nodeData/setMapData":
         nodes = payload.data;

@@ -1,0 +1,17 @@
+.popconfirm {
+  background-color: #FFF7E1;
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  color:#333;
+  z-index: 1000;
+  overflow: hidden;
+  white-space: normal;
+  user-select: text;
+  word-break: break-all;
+  box-sizing: border-box;
+  box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+}

@@ -6,6 +6,7 @@ import Link from './link'
 import { context } from "@context";
 import useGlobal from "@context/reducer/global/useGlobal";
 import useNodeData from "@context/reducer/nodeData/useNodeData";
+import Remarks from './remarks';
 
 
 const LinkAndRemarks = () => {
@@ -16,6 +17,8 @@ const LinkAndRemarks = () => {
 
   const useGlobalHook = useGlobal();
   const useNodeDataHook = useNodeData();
+
+  const isLink = modalLinkAndRemarks === 'link';
 
   const btnStyles = {
     backgroundColor: '#1890ff',
@@ -29,11 +32,15 @@ const LinkAndRemarks = () => {
 
   const sumBit = val => {
     const obj = {
-      id:currentNode,
-      link: {
+      id: currentNode,
+    }
+    if (isLink) {
+      obj.link = {
         url: val.link,
         remarks: val.remarks
       }
+    }else{
+      obj.remarks = val;
     }
     useNodeDataHook.modifyContent(obj);
     cancel()
@@ -43,8 +50,12 @@ const LinkAndRemarks = () => {
     return null;
   }
   return (
-    <Modal visible={true} title="链接" onCancel={cancel}>
-      <Link btnStyles={btnStyles} onSub={sumBit} onCancel={cancel} />
+    <Modal visible={true} title={isLink ? '链接' : '备注'} onCancel={cancel}>
+      {
+        isLink ?
+          <Link btnStyles={btnStyles} onSub={sumBit} onCancel={cancel} /> :
+          <Remarks btnStyles={btnStyles} onSub={sumBit} onCancel={cancel} />
+      }
     </Modal>
   )
 }

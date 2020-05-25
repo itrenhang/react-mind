@@ -80,9 +80,20 @@
   border: 1px solid #ccc;
   border-radius: 12px;
 }
-.link{
+.link, .remarks{
   margin-left: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.remarks{
+  position: relative;
+}
+.remarksInfo{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.remarks:hover .remarksInfo{
+  display: block;
 }

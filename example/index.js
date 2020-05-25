@@ -17,6 +17,7 @@ const Example = props => {
         <button onClick={props.redo}>恢复</button>
         <button onClick={props.insertIcon}>插入ICON</button>
         <button onClick={props.insertLink}>插入链接</button>
+        <button onClick={props.insertRemarks}>插入备注</button>
       </div>
       <div className={cssModule.map}>{props.children}</div>
     </>
