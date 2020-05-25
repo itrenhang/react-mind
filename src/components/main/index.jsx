@@ -14,7 +14,10 @@ import useHistory from "@context/reducer/history/useHistory";
 import cssModule from "./index.css";
 import { context } from "@context";
 import LineCanvas from "../lineCanvas";
+import DragCanvas from "../dragCanvas";
 import ContextMenu from "../ContextMenu";
+import mapDrag from "../../methods/mapDrag";
+import hotkey from "../../hotkeys";
 
 const node_refs = new Map();
 const Main = (props, ref) => {
@@ -22,7 +25,6 @@ const Main = (props, ref) => {
   const useNodeDataHook = useNodeData();
   const useNodeStateHook = useNodeState();
   const useHistoryHook = useHistory();
-
   const {
     global: {
       state: { mapPos }
@@ -41,7 +43,7 @@ const Main = (props, ref) => {
 
   const mainMatrix = useMemo(() => {
     return { transform: `Matrix(1, 0, 0, 1, ${mapPos.x}, ${mapPos.y})` };
-  }, [mapPos.x, mapPos.y]);
+  }, [mapPos]);
   const nodes_json = useMemo(() => JSON.stringify(nodes), [nodes]);
 
   useImperativeHandle(ref, () => ({
@@ -49,7 +51,13 @@ const Main = (props, ref) => {
       useGlobalHook.setTheme(val);
     },
     setMapCenter() {
-      useGlobalHook.setMapPosCenter();
+      const dom = document.getElementById("root");
+      useGlobalHook.setMapPosCenter({
+        w: dom.offsetWidth,
+        h: dom.offsetHeight,
+        x: dom.offsetLeft,
+        y: dom.offsetTop
+      });
     },
     addChild() {
       useNodeDataHook.addChild(currentNode);
@@ -77,7 +85,10 @@ const Main = (props, ref) => {
     },
     moveDown() {
       useNodeDataHook.moveDown(currentNode);
-    }
+    },
+    allExpand(isExpand){
+      useNodeDataHook.allExpand(isExpand);
+    },
   }));
   useEffect(() => {
     useNodeDataHook.setMapData(data);
@@ -94,6 +105,17 @@ const Main = (props, ref) => {
       });
     }
   }, [nodes_json]);
+  useEffect(() => {
+    const dom = containerEle.current;
+    const handleDrag = mapDrag(dom, self.current, useGlobalHook);
+    const handleHotkey = hotkey();
+    dom.addEventListener("mousedown", handleDrag);
+    window.addEventListener("keydown", handleHotkey);
+    return () => {
+      dom.removeEventListener("mousedown", handleDrag);
+      window.removeEventListener("keydown", handleHotkey);
+    };
+  }, []);
   const overallClick = () => {
     if (currentNode) {
       useNodeStateHook.selectNode("");
@@ -112,6 +134,7 @@ const Main = (props, ref) => {
           <NodeList node_refs={node_refs} />
           <ContextMenu />
           <LineCanvas parent_ref={self} node_refs={node_refs} />
+          <DragCanvas parent_ref={self} node_refs={node_refs} mapPos={mapPos} />
         </>
       );
     } else {

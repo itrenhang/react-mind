@@ -40,6 +40,9 @@ const App = (props, ref) => {
     moveDown(){ //下移
       mindRef.current.moveDown();
     },
+    allExpand(isExpand){  // 全部展开或收起
+      mindRef.current.allExpand(isExpand);
+    },
   }))
   return (
     <Provider>

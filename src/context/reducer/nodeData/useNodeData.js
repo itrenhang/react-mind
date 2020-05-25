@@ -113,6 +113,29 @@ const useNodeData = () => {
         });
       }
     },
+    subMoveNode(id, toId, direction){
+      if(id && toId && direction){
+        nDispatch({
+          type: "nodeData/subMoveNode",
+          payload: {
+            id,
+            toId,
+            direction
+          }
+        });
+      }
+    },
+    moveNode(id, toId) {
+      if (id && toId) {
+        nDispatch({
+          type: "nodeData/moveNode",
+          payload: {
+            id,
+            toId
+          }
+        });
+      }
+    },
     expand(id, expanded) {
       if (id) {
         nDispatch({
@@ -123,7 +146,15 @@ const useNodeData = () => {
           }
         });
       }
-    }
+    },
+    allExpand(isExpand){
+      nDispatch({
+        type: "nodeData/allExpand",
+        payload:{
+          isExpand
+        }
+      });
+    },
   };
 };
 

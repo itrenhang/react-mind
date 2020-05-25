@@ -45,7 +45,15 @@ const useGlobal = () => {
           contextMenuOpt: option || {x: 0,y: 0,visible: false},
         }
       });
-    }
+    },
+    setDrag(status){
+      gDispatch({
+        type: "global/setDrag",
+        payload: {
+          isDrag: status || false,
+        }
+      });
+    },
   };
 };
 

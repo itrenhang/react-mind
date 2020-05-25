@@ -14,7 +14,8 @@ const Node = ({ data, node_refs }) => {
   const {
     nodeState: {
       state: { currentNode, editNode }
-    }
+    },
+    global:{state:{isDrag}}
   } = useContext(context);
 
   let cls = "";
@@ -90,12 +91,14 @@ const Node = ({ data, node_refs }) => {
       onClick={e => nodeClick(data.id, e)}
       onDoubleClick={e => editClick(data.id, e)}
       onContextMenu={handleContextMenu}
-      className={className} ref={self}>
+      className={className} ref={self}
+      id={data.id}>
       <NodeContent
         className={cls}
         finishEditing={finishEditing}
         canEdit={editNode === data.id}
         data={data}
+        isDrag={isDrag}
         setExpend={setExpend}
         />
     </div>

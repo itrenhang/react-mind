@@ -1,17 +1,32 @@
-import { findNode, deepCopy, cteateNode, createParentNode,iconSort } from "../../../methods/nodeFunction";
+import {
+  findNode,
+  deepCopy,
+  cteateNode,
+  createParentNode,
+  iconSort,
+  nodeZIndexPlus,
+  allExpand
+} from "../../../methods/nodeFunction";
 
 const defaultNodes = {
-  nodes: cteateNode({ id: "root", ZIndex: "1", content:{text:'新建脑图'}})
+  nodes: cteateNode({ id: "root", ZIndex: "1", content: { text: "新建脑图" } })
 };
 export const nodeData = {
   state: {
     nodes: {}
   },
   reducers(state, action) {
-    let nodes, node_found, new_state, parent_node, index, payload;
+    let nodes,
+      node_found,
+      new_state,
+      parent_node,
+      index,
+      payload,
+      new_node,
+      toIndex;
     payload = action.payload;
     new_state = deepCopy(state);
-    if(payload.id){
+    if (payload.id) {
       node_found = findNode(new_state.nodes, payload.id);
     }
     switch (action.type) {
@@ -20,15 +35,14 @@ export const nodeData = {
           node_found instanceof Object &&
           Object.keys(node_found).length > 0
         ) {
-          let node = {}
+          let node = {};
           if (action.payload.icon) {
             const icon = deepCopy(node_found.content.icon);
-            const newIcon = iconSort(icon,action.payload.icon);
-            node = {...node_found};
-            node.content.icon = [...newIcon]
-            console.log(newIcon);
+            const newIcon = iconSort(icon, action.payload.icon);
+            node = { ...node_found };
+            node.content.icon = [...newIcon];
           } else {
-            node = { ...action.payload.node }
+            node = { ...action.payload.node };
           }
           Object.assign(node_found, node);
           return new_state;
@@ -81,14 +95,62 @@ export const nodeData = {
           index = parent_node.children.findIndex(
             node => node.id === payload.id
           );
-          if((index - payload.direction > -1 && index - payload.direction < parent_node.children.length)){
-            parent_node.children[index] = parent_node.children.splice(index - payload.direction, 1, parent_node.children[index])[0];
+          if (
+            index - payload.direction > -1 &&
+            index - payload.direction < parent_node.children.length
+          ) {
+            parent_node.children[index] = parent_node.children.splice(
+              index - payload.direction,
+              1,
+              parent_node.children[index]
+            )[0];
             return new_state;
           }
         }
         return state;
-      case 'nodeData/expand':
+      case "nodeData/subMoveNode":
+        parent_node = findNode(new_state.nodes, node_found.parentId);
+        if (parent_node) {
+          index = parent_node.children.findIndex(
+            node => node.id === payload.id
+          );
+          toIndex = parent_node.children.findIndex(
+            node => node.id === payload.toId
+          );
+          if (toIndex - payload.direction != index) {
+            new_node = parent_node.children.splice(index, 1)[0];
+            parent_node.children.splice(
+              payload.direction > 0 ? toIndex : toIndex - payload.direction,
+              0,
+              new_node
+            );
+            return new_state;
+          }
+        }
+        return state;
+      case "nodeData/moveNode":
+        parent_node = findNode(new_state.nodes, node_found.parentId);
+        const to_node = findNode(new_state.nodes, payload.toId);
+        if (!findNode(node_found, payload.toId)) {
+          if (parent_node) {
+            index = parent_node.children.findIndex(
+              node => node.id === payload.id
+            );
+            new_node = nodeZIndexPlus(
+              parent_node.children.splice(index, 1)[0],
+              to_node.ZIndex
+            );
+            new_node.parentId = to_node.id;
+            to_node.children.push(new_node);
+            return new_state;
+          }
+        }
+        return state;
+      case "nodeData/expand":
         node_found.expanded = action.payload.expanded;
+        return new_state;
+      case "nodeData/allExpand":
+        allExpand(new_state.nodes, action.payload.isExpand);
         return new_state;
       default:
         return state;

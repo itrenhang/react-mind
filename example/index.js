@@ -16,6 +16,8 @@ const Example = props => {
         <button onClick={props.undo}>撤销</button>
         <button onClick={props.redo}>恢复</button>
         <button onClick={props.insertIcon}>插入ICON</button>
+        <button onClick={()=>props.allExpand(true)}>全部展开</button>
+        <button onClick={()=>props.allExpand(false)}>全部收起</button>
       </div>
       <div className={cssModule.map}>{props.children}</div>
     </>

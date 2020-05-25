@@ -11,5 +11,5 @@
 .main_root {
   width: fit-content;
   position: relative;
-  transition: all 0.1s linear;
+  /* transition: all 0.1s linear; */
 }

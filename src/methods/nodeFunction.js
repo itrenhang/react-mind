@@ -30,26 +30,25 @@ export const cteateNode = ({ id, parentId, ZIndex, content } = {}) => {
   };
 };
 
-const nodeZIndexPlus = (node) => {
-  node.ZIndex++;
+export const nodeZIndexPlus = (node, ZIndex) => {
+  node.ZIndex = +ZIndex + 1;
   if (node.children && node.children.length > 0) {
     for (let i = 0; i < node.children.length; i++) {
-      nodeZIndexPlus(node.children[i])
+      nodeZIndexPlus(node.children[i], node.ZIndex)
     }
   }
   return node;
 };
 
 export const createParentNode = (parent_node, node, new_parentNode) => {
-
   new_parentNode.ZIndex = +node.ZIndex;
   new_parentNode.parentId = parent_node.id;
   node.parentId = new_parentNode.id;
-  const newNode = nodeZIndexPlus(node)
+  const newNode = nodeZIndexPlus(node, new_parentNode.ZIndex)
   new_parentNode.children.push(newNode);
   return new_parentNode;
 };
-
+// 防抖
 export const debounce = (func, wait) => {
   let timer = null;
   return function () {
@@ -60,6 +59,18 @@ export const debounce = (func, wait) => {
   }
 
 }
+// 节流
+export const throrttle = (func, wait) => {
+  let timer = null;
+  return function () {
+    if(!timer){
+      timer = setTimeout(()=>{
+        func.apply(this, arguments);
+        timer = null;
+      },wait);
+    }
+  }
+};
 
 export const iconSort = (iconList, icon) => {
   if (iconList.length <= 0) {
@@ -84,3 +95,14 @@ export const iconSort = (iconList, icon) => {
   }
   return newAry;
 }
+
+// 全部展开或收起
+export const allExpand = (nodes, isExpand) => {
+  if(nodes.id != 'root'){
+    nodes.expanded = isExpand;
+  }
+  if(nodes.children && nodes.children.length > 0){
+    nodes.children.map(child => allExpand(child, isExpand));
+  }
+  return nodes;
+};

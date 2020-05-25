@@ -38,6 +38,9 @@ const AppTest = () => {
   const moveDown = () => {
     webMind.current.moveDown();
   }
+  const allExpand = (isExpand) => {
+    webMind.current.allExpand(isExpand);
+  }
   return (
     <Example
         setTheme={setTheme}
@@ -51,6 +54,7 @@ const AppTest = () => {
         redo={redo}
         moveUp={moveUp}
         moveDown={moveDown}
+        allExpand={allExpand}
       >
       <WebMind data={testData} ref={webMind} />
     </Example>
