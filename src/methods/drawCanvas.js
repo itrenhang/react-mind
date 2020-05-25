@@ -20,7 +20,12 @@ const mindMapLine = (ctx, nodes, node_refs) => {
   if(!nodes.expanded){
     return;
   }
-  children.forEach(child => {
+  children.forEach((child, index) => {
+    if(typeof nodes.expanded != 'boolean'){
+      if(index >= nodes.children.length - nodes.expanded){
+        return;
+      }
+    }
     const child_ele = node_refs.get(child.id);
     const cOpt = {
       w: child_ele.offsetWidth,

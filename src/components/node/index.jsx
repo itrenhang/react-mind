@@ -15,7 +15,7 @@ const Node = ({ data, node_refs }) => {
     nodeState: {
       state: { currentNode, editNode }
     },
-    global:{state:{isDrag}}
+    global:{state:{isDrag, onebyone}}
   } = useContext(context);
 
   let cls = "";
@@ -84,7 +84,19 @@ const Node = ({ data, node_refs }) => {
   }
   const setExpend = (e) => {
     e.stopPropagation();
-    useNodeDataHook.expand(data.id, !data.expanded);
+    if(onebyone){
+      const n = data.children.length;
+      let expandNum;
+      if(typeof data.expanded == 'boolean'){
+        expandNum = data.expanded?n:1;
+      }else{
+        expandNum = data.expanded - 1?data.expanded - 1:true;
+      }
+      useNodeDataHook.expand(data.id, expandNum);
+    }else{
+      useNodeDataHook.expand(data.id, !data.expanded);
+    }
+    
   }
   return (
     <div
@@ -99,6 +111,7 @@ const Node = ({ data, node_refs }) => {
         canEdit={editNode === data.id}
         data={data}
         isDrag={isDrag}
+        onebyone={onebyone}
         setExpend={setExpend}
         />
     </div>

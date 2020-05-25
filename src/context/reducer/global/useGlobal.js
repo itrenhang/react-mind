@@ -54,6 +54,14 @@ const useGlobal = () => {
         }
       });
     },
+    onebyone(status){
+      gDispatch({
+        type: "global/onebyone",
+        payload: {
+          onebyone: status,
+        }
+      });
+    },
   };
 };
 

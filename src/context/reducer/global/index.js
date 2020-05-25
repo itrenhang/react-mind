@@ -13,6 +13,7 @@ export const global = {
       y: 0
     },
     isDrag: false,
+    onebyone: false
   },
   reducers(state, action) {
     switch (action.type) {
@@ -34,6 +35,9 @@ export const global = {
       case "global/setDrag":
           const {isDrag} = action.payload;
           return { ...state, ...{isDrag} };
+      case "global/onebyone":
+        const {onebyone} = action.payload;
+        return { ...state, ...{onebyone} };
       default:
         return state;
     }

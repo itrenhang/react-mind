@@ -21,8 +21,17 @@ const Icon = props => (
     })}
   </div>
 );
-const Expended = ({data, setExpend}) => {
-  const content = data.expanded?'-':'+';
+const Expended = ({data, setExpend, onebyone}) => {
+  let content;
+  if(onebyone){
+    if(typeof data.expanded == 'boolean'){
+      content = data.expanded?'-':data.children.length;
+    }else{
+      content = data.expanded?data.expanded:'-';
+    }
+  }else{
+    content = data.expanded?'-':'+';
+  }
   if(data.ZIndex == 1 || data.children.length < 1){
     return null;
   }
@@ -32,7 +41,7 @@ const Expended = ({data, setExpend}) => {
 };
 
 const NodeContent = props => {
-  const { className, canEdit, finishEditing, data, isDrag } = props;
+  const { className, canEdit, finishEditing, data, isDrag, onebyone } = props;
   const { text = "", icon = [] } = data.content;
   const newClass = `${className} ${cssModule.content_container}`;
 
@@ -48,7 +57,7 @@ const NodeContent = props => {
           )}
         </div>
       </div>
-      <Expended data={data} setExpend={props.setExpend} />
+      <Expended data={data} setExpend={props.setExpend} onebyone={onebyone} />
     </>
   );
 };
