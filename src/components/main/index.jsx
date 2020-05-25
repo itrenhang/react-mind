@@ -93,6 +93,9 @@ const Main = (props, ref) => {
     allExpand(isExpand){
       useNodeDataHook.allExpand(isExpand);
     },
+    onebyone(status){
+      useGlobalHook.onebyone(status);
+    },
   }));
   useEffect(() => {
     useNodeDataHook.setMapData(data);

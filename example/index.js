@@ -19,6 +19,8 @@ const Example = props => {
         <button onClick={props.insertLink}>插入链接</button>
         <button onClick={()=>props.allExpand(true)}>全部展开</button>
         <button onClick={()=>props.allExpand(false)}>全部收起</button>
+        <button onClick={()=>props.onebyone(false)}>逐级展开</button>
+        <button onClick={()=>props.onebyone(true)}>逐个展开</button>
       </div>
       <div className={cssModule.map}>{props.children}</div>
     </>

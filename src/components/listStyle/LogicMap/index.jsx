@@ -3,14 +3,21 @@ import Node from "../../node";
 import cssModule from './index.css';
 
 const SubNode = ({node, node_refs}) => {
+
   return (
     <div className={cssModule.nodeContainer}>
       <Node data={node} node_refs={node_refs} />
       {
         node.expanded && <div>
         {node.children &&
-          node.children.map((sub_node) => {
-            return <SubNode key={sub_node.id} node={sub_node} node_refs={node_refs} />
+          node.children.map((sub_node, index) => {
+            if(typeof node.expanded == 'boolean'){
+              return <SubNode key={sub_node.id} node={sub_node} node_refs={node_refs} />
+            }else{
+              if(index < node.children.length - node.expanded){
+                return <SubNode key={sub_node.id} node={sub_node} node_refs={node_refs} />
+              }
+            }
           })}
         </div>
       }
