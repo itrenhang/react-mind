@@ -51,7 +51,15 @@ const useGlobal = () => {
         type:'global/setModalLinkAndRemarks',
         payload: option,
       })
-    }
+    },
+    setDrag(status){
+      gDispatch({
+        type: "global/setDrag",
+        payload: {
+          isDrag: status || false,
+        }
+      });
+    },
   };
 };
 

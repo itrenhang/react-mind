@@ -31,13 +31,14 @@ const Expended = ({ data, setExpend }) => {
 };
 
 const NodeContent = props => {
-  const { className, canEdit, finishEditing, data } = props;
+  const { className, canEdit, finishEditing, data, isDrag } = props;
   const { text = "", icon = [], link = {} } = data.content;
   const newClass = `${className} ${cssModule.content_container}`;
 
   return (
     <>
-      <div className={newClass}>
+      <div className={newClass} draggable="true">
+        {isDrag && <div className={cssModule.nodeMask} data-tag="nodeMask"></div>}
         {icon.length > 0 && <Icon data={icon} />}
         <div style={{ position: "relative" }}>
           {text && <Text data={text} />}
