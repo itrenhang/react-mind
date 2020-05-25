@@ -14,7 +14,8 @@ const Node = ({ data, node_refs }) => {
   const {
     nodeState: {
       state: { currentNode, editNode }
-    }
+    },
+    global:{state:{isDrag, onebyone}}
   } = useContext(context);
 
   let cls = "";
@@ -83,19 +84,34 @@ const Node = ({ data, node_refs }) => {
   }
   const setExpend = (e) => {
     e.stopPropagation();
-    useNodeDataHook.expand(data.id, !data.expanded);
+    if(onebyone){
+      const n = data.children.length;
+      let expandNum;
+      if(typeof data.expanded == 'boolean'){
+        expandNum = data.expanded?n:1;
+      }else{
+        expandNum = data.expanded - 1?data.expanded - 1:true;
+      }
+      useNodeDataHook.expand(data.id, expandNum);
+    }else{
+      useNodeDataHook.expand(data.id, !data.expanded);
+    }
+    
   }
   return (
     <div
       onClick={e => nodeClick(data.id, e)}
       onDoubleClick={e => editClick(data.id, e)}
       onContextMenu={handleContextMenu}
-      className={className} ref={self}>
+      className={className} ref={self}
+      id={data.id}>
       <NodeContent
         className={cls}
         finishEditing={finishEditing}
         canEdit={editNode === data.id}
         data={data}
+        isDrag={isDrag}
+        onebyone={onebyone}
         setExpend={setExpend}
         />
     </div>

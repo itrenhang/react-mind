@@ -37,9 +37,18 @@ const Remarks = props => {
   )
 }
 
-const Expended = ({ data, setExpend }) => {
-  const content = data.expanded ? '-' : '+';
-  if (data.ZIndex == 1 || data.children.length < 1) {
+const Expended = ({data, setExpend, onebyone}) => {
+  let content;
+  if(onebyone){
+    if(typeof data.expanded == 'boolean'){
+      content = data.expanded?'-':data.children.length;
+    }else{
+      content = data.expanded?data.expanded:'-';
+    }
+  }else{
+    content = data.expanded?'-':'+';
+  }
+  if(data.ZIndex == 1 || data.children.length < 1){
     return null;
   }
   return (
@@ -48,13 +57,15 @@ const Expended = ({ data, setExpend }) => {
 };
 
 const NodeContent = props => {
-  const { className, canEdit, finishEditing, data } = props;
+  const { className, canEdit, finishEditing, data, isDrag, onebyone } = props;
   const { text = "", icon = [], link = {}, remarks = "" } = data.content;
+  
   const newClass = `${className} ${cssModule.content_container}`;
 
   return (
     <>
-      <div className={newClass}>
+      <div className={newClass} draggable="true">
+        {isDrag && <div className={cssModule.nodeMask} data-tag="nodeMask"></div>}
         {icon.length > 0 && <Icon data={icon} />}
         <div style={{ position: "relative" }}>
           {text && <Text data={text} />}
@@ -65,7 +76,7 @@ const NodeContent = props => {
         {'url' in link && <Link data={link} />}
         {remarks && <Remarks data={remarks} />}
       </div>
-      <Expended data={data} setExpend={props.setExpend} />
+      <Expended data={data} setExpend={props.setExpend} onebyone={onebyone} />
     </>
   );
 };

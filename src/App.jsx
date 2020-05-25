@@ -46,6 +46,12 @@ const App = (props, ref) => {
     moveDown(){ //下移
       mindRef.current.moveDown();
     },
+    allExpand(isExpand){  // 全部展开或收起
+      mindRef.current.allExpand(isExpand);
+    },
+    onebyone(status){  // 逐级或逐个展开
+      mindRef.current.onebyone(status);
+    },
   }))
   return (
     <Provider>

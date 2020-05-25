@@ -44,6 +44,12 @@ const AppTest = () => {
   const moveDown = () => {
     webMind.current.moveDown();
   }
+  const allExpand = (isExpand) => {
+    webMind.current.allExpand(isExpand);
+  }
+  const onebyone = (status) => {
+    webMind.current.onebyone(status);
+  }
   return (
     <Example
         setTheme={setTheme}
@@ -59,6 +65,8 @@ const AppTest = () => {
         redo={redo}
         moveUp={moveUp}
         moveDown={moveDown}
+        allExpand={allExpand}
+        onebyone={onebyone}
       >
       <WebMind data={testData} ref={webMind} />
     </Example>

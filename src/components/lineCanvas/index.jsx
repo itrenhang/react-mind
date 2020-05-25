@@ -8,9 +8,7 @@ const LineCanvas = ({parent_ref, node_refs}) => {
   const {
     nodeData: {
       state: { nodes }
-    }
-  } = useContext(context);
-  const {
+    },
     global: {
       state: { theme, zoom, mindType }
     }
