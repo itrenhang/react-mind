@@ -42,24 +42,7 @@ const Main = (props, ref) => {
   const self = useRef(null);
   const { data } = props;
 
-  const mainMatrix = useMemo(() => {
-    return { transform: `Matrix(1, 0, 0, 1, ${mapPos.x}, ${mapPos.y})` };
-  }, [mapPos]);
-  const nodes_json = useMemo(() => JSON.stringify(nodes), [nodes]);
-
-  useImperativeHandle(ref, () => ({
-    setTheme(val) {
-      useGlobalHook.setTheme(val);
-    },
-    setMapCenter() {
-      const dom = document.getElementById("root");
-      useGlobalHook.setMapPosCenter({
-        w: dom.offsetWidth,
-        h: dom.offsetHeight,
-        x: dom.offsetLeft,
-        y: dom.offsetTop
-      });
-    },
+  const api = {
     addChild() {
       useNodeDataHook.addChild(currentNode);
     },
@@ -70,6 +53,7 @@ const Main = (props, ref) => {
       useNodeDataHook.addParent(currentNode);
     },
     deleteNode() {
+      debugger;
       useNodeDataHook.deleteNode(currentNode);
     },
     insertIcon(icon) {
@@ -102,6 +86,27 @@ const Main = (props, ref) => {
     onebyone(status){
       useGlobalHook.onebyone(status);
     },
+  }
+
+  const mainMatrix = useMemo(() => {
+    return { transform: `Matrix(1, 0, 0, 1, ${mapPos.x}, ${mapPos.y})` };
+  }, [mapPos]);
+  const nodes_json = useMemo(() => JSON.stringify(nodes), [nodes]);
+
+  useImperativeHandle(ref, () => ({
+    setTheme(val) {
+      useGlobalHook.setTheme(val);
+    },
+    setMapCenter() {
+      const dom = document.getElementById("root");
+      useGlobalHook.setMapPosCenter({
+        w: dom.offsetWidth,
+        h: dom.offsetHeight,
+        x: dom.offsetLeft,
+        y: dom.offsetTop
+      });
+    },
+    ...api,
   }));
   useEffect(() => {
     useNodeDataHook.setMapData(data);
@@ -121,7 +126,7 @@ const Main = (props, ref) => {
   useEffect(() => {
     const dom = containerEle.current;
     const handleDrag = mapDrag(dom, self.current, useGlobalHook);
-    const handleHotkey = hotkey();
+    const handleHotkey = hotkey(api);
     dom.addEventListener("mousedown", handleDrag);
     window.addEventListener("keydown", handleHotkey);
     return () => {
