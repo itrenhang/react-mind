@@ -68,6 +68,14 @@ const useGlobal = () => {
         }
       });
     },
+    setZoom(zoom){
+      gDispatch({
+        type: "global/setZoom",
+        payload: {
+          zoom,
+        }
+      });
+    },
   };
 };
 
