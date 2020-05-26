@@ -77,7 +77,7 @@ const Node = ({ data, node_refs }) => {
     event.preventDefault();
     useNodeStateHook.selectNode(data.id);
     useGlobalHook.setContextMenu({
-      x: event.pageX,
+      x: event.pageX + 10,
       y: event.pageY,
       visible: true
     })
@@ -98,6 +98,7 @@ const Node = ({ data, node_refs }) => {
     }
     
   }
+
   return (
     <div
       onClick={e => nodeClick(data.id, e)}

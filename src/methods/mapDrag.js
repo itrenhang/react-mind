@@ -14,6 +14,11 @@ const mapDrag = (dom, mainDom, useGlobalHook) => {
     useGlobalHook.setMapPos({
       x: mainPoi.x + (event.clientX - s.x),
       y: mainPoi.y + (event.clientY - s.y)
+    });
+    useGlobalHook.setContextMenu({
+      x: 0,
+      y: 0,
+      visible: false
     })
   };
 

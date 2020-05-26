@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import ReactDOM from "react-dom";
 import useGlobal from "@context/reducer/global/useGlobal";
 import useNodeData from "@context/reducer/nodeData/useNodeData";
@@ -76,7 +76,10 @@ const ContextMenu = () => {
       }
     }
   ];
-  const style = {top:contextMenuOpt.y+'px',left:contextMenuOpt.x+'px',display: contextMenuOpt.visible?'block':'none'}
+  const style = useMemo(()=>{
+    return {top:contextMenuOpt.y+'px',left:contextMenuOpt.x+'px',display: contextMenuOpt.visible?'block':'none'}
+  },[contextMenuOpt.y,contextMenuOpt.x,contextMenuOpt.visible])
+
   const createMenu = () => {
     return (
       <div className={cssModule.menu} style={style}>
