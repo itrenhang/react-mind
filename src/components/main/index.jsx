@@ -78,6 +78,9 @@ const Main = (props, ref) => {
     insertLink() {
       useGlobalHook.setModalLinkAndRemarks('link');
     },
+    insertImg(img) {
+      useNodeDataHook.modifyContent({img,id: currentNode});
+    },
     insertRemarks() {
       useGlobalHook.setModalLinkAndRemarks('remarks');
     },

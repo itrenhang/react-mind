@@ -30,25 +30,27 @@ const Remarks = props => {
       onMouseOver={() => setIsVis(true)}
       onMouseOut={() => { setIsVis(false) }}>
       <img src="/assets/img/remarks.png" alt="" />
-      <Popconfirm style={{width:'148px'}} visible={isVis}>
+      <Popconfirm style={{ width: '148px' }} visible={isVis}>
         {props.data}
       </Popconfirm>
     </div>
   )
 }
 
-const Expended = ({data, setExpend, onebyone}) => {
+const Image = props => <div className={cssModule.image}><img src={props.data} /></div>
+
+const Expended = ({ data, setExpend, onebyone }) => {
   let content;
-  if(onebyone){
-    if(typeof data.expanded == 'boolean'){
-      content = data.expanded?'-':data.children.length;
-    }else{
-      content = data.expanded?data.expanded:'-';
+  if (onebyone) {
+    if (typeof data.expanded == 'boolean') {
+      content = data.expanded ? '-' : data.children.length;
+    } else {
+      content = data.expanded ? data.expanded : '-';
     }
-  }else{
-    content = data.expanded?'-':'+';
+  } else {
+    content = data.expanded ? '-' : '+';
   }
-  if(data.ZIndex == 1 || data.children.length < 1){
+  if (data.ZIndex == 1 || data.children.length < 1) {
     return null;
   }
   return (
@@ -58,23 +60,25 @@ const Expended = ({data, setExpend, onebyone}) => {
 
 const NodeContent = props => {
   const { className, canEdit, finishEditing, data, isDrag, onebyone } = props;
-  const { text = "", icon = [], link = {}, remarks = "" } = data.content;
-  
-  const newClass = `${className} ${cssModule.content_container}`;
+  const { text = "", icon = [], link = {}, remarks = "", img } = data.content;
+  const newClass = `${cssModule.content_container}`;
 
   return (
     <>
-      <div className={newClass} draggable="true">
-        {isDrag && <div className={cssModule.nodeMask} data-tag="nodeMask"></div>}
-        {icon.length > 0 && <Icon data={icon} />}
-        <div style={{ position: "relative" }}>
-          {text && <Text data={text} />}
-          {canEdit && (
-            <EditContainer finishEditing={finishEditing}>{text}</EditContainer>
-          )}
+      <div className={className} draggable="true">
+        {img && <Image data={img}/>}
+        <div className={newClass}>
+          {isDrag && <div className={cssModule.nodeMask} data-tag="nodeMask"></div>}
+          {icon.length > 0 && <Icon data={icon} />}
+          <div style={{ position: "relative" }}>
+            {text && <Text data={text} />}
+            {canEdit && (
+              <EditContainer finishEditing={finishEditing}>{text}</EditContainer>
+            )}
+          </div>
+          {'url' in link && <Link data={link} />}
+          {remarks && <Remarks data={remarks} />}
         </div>
-        {'url' in link && <Link data={link} />}
-        {remarks && <Remarks data={remarks} />}
       </div>
       <Expended data={data} setExpend={props.setExpend} onebyone={onebyone} />
     </>

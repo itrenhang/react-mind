@@ -18,6 +18,7 @@ const Example = props => {
         <button onClick={props.insertIcon}>插入ICON</button>
         <button onClick={props.insertLink}>插入链接</button>
         <button onClick={props.insertRemarks}>插入备注</button>
+        <button onClick={props.insertImg}>插入图片</button>
         <button onClick={()=>props.allExpand(true)}>全部展开</button>
         <button onClick={()=>props.allExpand(false)}>全部收起</button>
         <button onClick={()=>props.onebyone(false)}>逐级展开</button>

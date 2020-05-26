@@ -51,8 +51,9 @@ export const nodeData = {
             const icon = deepCopy(node_found.content.icon);
             const newIcon = iconSort(icon, action.payload.icon);
             node.content.icon = [...newIcon]
+          } else {
+            node.content = { ...node.content, ...action.payload }
           }
-          node.content = { ...node.content, ...action.payload }
           Object.assign(node_found, node);
           return new_state;
         }

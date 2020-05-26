@@ -34,6 +34,9 @@ const App = (props, ref) => {
     insertRemarks() { // 插入备注
       mindRef.current.insertRemarks();
     },
+    insertImg(img) { // 插入图片
+      mindRef.current.insertImg(img);
+    },
     undo() {  // 撤销
       mindRef.current.undo();
     },

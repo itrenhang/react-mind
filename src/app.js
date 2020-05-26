@@ -32,6 +32,9 @@ const AppTest = () => {
   const insertRemarks = () => {
     webMind.current.insertRemarks();
   }
+  const insertImg = () => {
+    webMind.current.insertImg('https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg');
+  }
   const undo = () => {
     webMind.current.undo();
   }
@@ -61,6 +64,7 @@ const AppTest = () => {
         insertIcon={insertIcon}
         insertLink={insertLink}
         insertRemarks={insertRemarks}
+        insertImg={insertImg}
         undo={undo}
         redo={redo}
         moveUp={moveUp}
