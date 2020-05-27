@@ -1,7 +1,7 @@
 const keyValue = key => {
   switch (key.keyCode) {
     case 113:
-      return null;
+      return 'edit';
     case 46:
       return 'deleteNode';
     case 38:
@@ -20,7 +20,7 @@ const keyValue = key => {
       }
       return 'addChild';
     case 13:
-      return 'moveDown';
+      return 'addSub';
   }
 }
 

@@ -19,6 +19,7 @@ import ContextMenu from "../ContextMenu";
 import LinkAndRemarks from "@components/linkAndRemarks";
 import mapDrag from "../../methods/mapDrag";
 import hotkey from "../../hotkeys";
+import zoomEvent from "../../methods/zoomEvent";
 
 const node_refs = new Map();
 const Main = (props, ref) => {
@@ -28,7 +29,7 @@ const Main = (props, ref) => {
   const useHistoryHook = useHistory();
   const {
     global: {
-      state: { mapPos }
+      state: { mapPos, zoom }
     },
     nodeData: {
       state: { nodes }
@@ -43,8 +44,8 @@ const Main = (props, ref) => {
   const { data } = props;
 
   const mainMatrix = useMemo(() => {
-    return { transform: `Matrix(1, 0, 0, 1, ${mapPos.x}, ${mapPos.y})` };
-  }, [mapPos]);
+    return { transform: `Matrix(${zoom}, 0, 0, ${zoom}, ${mapPos.x}, ${mapPos.y})` };
+  }, [mapPos, zoom]);
   const nodes_json = useMemo(() => JSON.stringify(nodes), [nodes]);
 
   const api = {
@@ -90,6 +91,9 @@ const Main = (props, ref) => {
     onebyone(status) {
       useGlobalHook.onebyone(status);
     },
+    edit() {
+      useNodeStateHook.editNode(currentNode);
+    }
   }
 
   useImperativeHandle(ref, () => ({
@@ -134,9 +138,12 @@ const Main = (props, ref) => {
   useEffect(() => {
     const dom = containerEle.current;
     const handleDrag = mapDrag(dom, self.current, useGlobalHook);
+    const zoomEventHandle = zoomEvent(useGlobalHook);
     dom.addEventListener("mousedown", handleDrag);
+    dom.addEventListener("mousewheel", zoomEventHandle);
     return () => {
       dom.removeEventListener("mousedown", handleDrag);
+      dom.removeEventListener("mousewheel", zoomEventHandle);
     };
   }, []);
   const overallClick = () => {

@@ -95,6 +95,10 @@ const useNodeData = () => {
             id,
           }
         });
+        nsDispatch({
+          type: "nodeState/selectNode",
+          payload: {current:''}
+        });
       }
     },
     moveUp(id) {
