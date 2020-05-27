@@ -42,6 +42,11 @@ const Main = (props, ref) => {
   const self = useRef(null);
   const { data } = props;
 
+  const mainMatrix = useMemo(() => {
+    return { transform: `Matrix(1, 0, 0, 1, ${mapPos.x}, ${mapPos.y})` };
+  }, [mapPos]);
+  const nodes_json = useMemo(() => JSON.stringify(nodes), [nodes]);
+
   const api = {
     addChild() {
       useNodeDataHook.addChild(currentNode);
@@ -53,7 +58,6 @@ const Main = (props, ref) => {
       useNodeDataHook.addParent(currentNode);
     },
     deleteNode() {
-      debugger;
       useNodeDataHook.deleteNode(currentNode);
     },
     insertIcon(icon) {
@@ -63,7 +67,7 @@ const Main = (props, ref) => {
       useGlobalHook.setModalLinkAndRemarks('link');
     },
     insertImg(img) {
-      useNodeDataHook.modifyContent({img,id: currentNode});
+      useNodeDataHook.modifyContent({ img, id: currentNode });
     },
     insertRemarks() {
       useGlobalHook.setModalLinkAndRemarks('remarks');
@@ -80,18 +84,13 @@ const Main = (props, ref) => {
     moveDown() {
       useNodeDataHook.moveDown(currentNode);
     },
-    allExpand(isExpand){
+    allExpand(isExpand) {
       useNodeDataHook.allExpand(isExpand);
     },
-    onebyone(status){
+    onebyone(status) {
       useGlobalHook.onebyone(status);
     },
   }
-
-  const mainMatrix = useMemo(() => {
-    return { transform: `Matrix(1, 0, 0, 1, ${mapPos.x}, ${mapPos.y})` };
-  }, [mapPos]);
-  const nodes_json = useMemo(() => JSON.stringify(nodes), [nodes]);
 
   useImperativeHandle(ref, () => ({
     setTheme(val) {
@@ -106,7 +105,7 @@ const Main = (props, ref) => {
         y: dom.offsetTop
       });
     },
-    ...api,
+    ...api
   }));
   useEffect(() => {
     useNodeDataHook.setMapData(data);
@@ -123,15 +122,21 @@ const Main = (props, ref) => {
       });
     }
   }, [nodes_json]);
+
+  useEffect(() => {
+    const handleHotkey = hotkey(api);
+    window.addEventListener("keydown", handleHotkey);
+    return () => {
+      window.removeEventListener("keydown", handleHotkey);
+    }
+  }, [currentNode])
+
   useEffect(() => {
     const dom = containerEle.current;
     const handleDrag = mapDrag(dom, self.current, useGlobalHook);
-    const handleHotkey = hotkey(api);
     dom.addEventListener("mousedown", handleDrag);
-    window.addEventListener("keydown", handleHotkey);
     return () => {
       dom.removeEventListener("mousedown", handleDrag);
-      window.removeEventListener("keydown", handleHotkey);
     };
   }, []);
   const overallClick = () => {

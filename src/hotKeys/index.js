@@ -29,7 +29,6 @@ const hotKey = api => {
     const eventName = keyValue(event);
     if(eventName){
       const runEvent = api[eventName];
-      console.log(runEvent)
       runEvent();
     }
   }
