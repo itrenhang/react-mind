@@ -20,6 +20,7 @@ import LinkAndRemarks from "@components/linkAndRemarks";
 import mapDrag from "../../methods/mapDrag";
 import hotkey from "../../hotkeys";
 import zoomEvent from "../../methods/zoomEvent";
+import { findNode } from "../../methods/nodeFunction";
 
 const node_refs = new Map();
 const Main = (props, ref) => {
@@ -35,7 +36,7 @@ const Main = (props, ref) => {
       state: { nodes }
     },
     nodeState: {
-      state: { currentNode }
+      state: { currentNode, editNode }
     }
   } = useContext(context);
 
@@ -133,7 +134,7 @@ const Main = (props, ref) => {
     return () => {
       window.removeEventListener("keydown", handleHotkey);
     }
-  }, [currentNode])
+  }, [currentNode]);
 
   useEffect(() => {
     const dom = containerEle.current;
@@ -146,6 +147,34 @@ const Main = (props, ref) => {
       dom.removeEventListener("mousewheel", zoomEventHandle);
     };
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("copy", copyNode);
+    window.addEventListener("paste", pasteNode);
+    return () => {
+      window.removeEventListener("copy", copyNode);
+      window.removeEventListener("paste", pasteNode);
+    }
+  }, [currentNode, editNode]);
+
+  const copyNode = event => {
+    if(currentNode && !editNode){
+      event.preventDefault();
+      const node = findNode(nodes, currentNode);
+      if(node.content){
+        event.clipboardData.setData('text/plain', node.content.text);
+      }
+    }
+  };
+
+  const pasteNode = event => {
+    const clipboardData =  event.clipboardData.getData('text/plain');
+    if(currentNode && clipboardData && !editNode){
+      event.preventDefault();
+      useNodeDataHook.addChild(currentNode, clipboardData);
+    }
+  };
+
   const overallClick = () => {
     if (currentNode) {
       useNodeStateHook.selectNode("");

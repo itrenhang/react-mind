@@ -16,7 +16,8 @@
     "type": "git",
     "url": "git@git.nobook.com:web/web-mind.git"
   },
-  "author": "",
+  "keywords": [],
+  "author": "ren",
   "license": "ISC",
   "dependencies": {
     "file-loader": "^6.0.0",

@@ -30,9 +30,9 @@ const useNodeData = () => {
         }
       });
     },
-    addChild(id) {
+    addChild(id, content) {
       if (id) {
-        const node = cteateNode();
+        const node = cteateNode({content});
         nDispatch({
           type: "nodeData/addChild",
           payload: {
